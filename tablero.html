@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <title>TABLERO</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html,body{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      canvas{
+        
+        position: relative;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <script language="javascript" type="text/javascript" src="scripts/p5.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <script>
+      var socket = io();
+      
+      socket.on('nuevo jugador', function(jugador){
+        $('body').append('Nuevo jugador',jugador.id);
+      });
+      socket.on('moverPac', function(dir){
+        teclas[dir.direccion] = true;
+      });
+      socket.on('quitarTecla', function(dir){
+        teclas = {};
+      });
+
+
+    </script>
+    <script src="scripts/Pacman.proto.js"></script>
+    <script src="scripts/Tablero.js"></script>
+    <script src="scripts/pacman.js"></script>
+  </body>
+</html>
