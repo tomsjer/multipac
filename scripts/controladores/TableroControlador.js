@@ -2,12 +2,12 @@ function TableroControlador(){
 
     // TODO: cargar desde JSON
     var config = {
-        alto: 600,
-        ancho: 600,
+        alto: 500,
+        ancho: 500,
         filas: 10,
         columnas: 10,
-        anchoCelda : 60,// (window.innerWidth/10),
-        altoCelda: 60,// (window.innerHeight/10),
+        anchoCelda : 50,// (window.innerWidth/10),
+        altoCelda: 50,// (window.innerHeight/10),
         estadoGrilla: [
         [0,0,0,0,0,0,0,0,0,0],
         [0,1,1,1,0,0,1,1,1,0],

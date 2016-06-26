@@ -1,10 +1,18 @@
  function JugadorControlador(opciones){
     
-    this.modelo = new JugdorModelo(opciones);
-    this.vista = new JugadorVista();
-    
+    this.modelo = new JugadorModelo(opciones);
+    this.vista = new JugadorVista(this.modelo);
+
 }
 
-Jugador.prototype.mover = function(tecla){
-    this.teclas[tecla] = true;
+JugadorControlador.prototype.mover = function(tecla){
+    this.modelo.mover(tecla); // Dir. Tecla es una implementacion especifica
+};
+
+JugadorControlador.prototype.actualizar = function(){
+     this.modelo.actualizar(); 
+};
+
+JugadorControlador.prototype.dibujar = function(){
+     this.vista.dibujar(); 
 };
