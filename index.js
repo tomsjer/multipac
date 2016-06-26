@@ -1,34 +1,36 @@
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var express   = require('express');
+var app       = express();
+var http      = require('http').Server(app);
+var io        = require('socket.io')(http);
 
 app.use('/scripts',express.static(__dirname + '/scripts'));
-app.use('/styles',express.static(__dirname + '/styles'));
+app.use('/css',express.static(__dirname + '/css'));
 app.use('/img',express.static(__dirname + '/img'));
+app.use('/html',express.static(__dirname + '/html'));
 
-app.get('/tablero', function(req, res){
-  res.sendfile('tablero.html');
+app.get('/juego', function(req, res){
+  res.sendfile('html/juego.html');
 });
 
 app.get('/jugador', function(req, res){
-  res.sendfile('jugador.html');
+  res.sendfile('html/jugador.html');
 });
 
 
 io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
+  
+  socket.on('nuevo jugador cliente', function(jugador){
+    console.log('Nuevo '+jugador.id);
+    io.emit('nuevo jugador tablero',jugador);
   });
-  socket.on('nuevo jugador', function(jugador){
-    io.emit('nuevo jugador',jugador);
+
+  socket.on('touchstart', function(touch){
+    console.log(touch.id + ' ' + touch.dir);
+    io.emit('mover tablero',touch);
   });
-  socket.on('mover', function(dir){
-    io.emit('moverPac',dir);
-  });
-  socket.on('quitar', function(dir){
-    io.emit('quitarTecla',dir);
+  
+  socket.on('touchend', function(touch){
+    io.emit('quitarTecla talero',touch);
   });
   
 });

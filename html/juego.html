@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <title>TABLERO</title>
+    <link rel="stylesheet" href="css/tablero.css">
+
+  </head>
+  <body>
+    <script language="javascript" type="text/javascript" src="scripts/libs/p5.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <script src="scripts/modelos/TableroModelo.js"></script>
+    
+    <script src="scripts/vistas/TableroVista.js"></script>
+    
+    <script src="scripts/controladores/TableroControlador.js"></script>
+    <script src="scripts/controladores/Jugadores.js" ></script>
+    
+    <!-- <script src="scripts/Pacman.proto.js"></script>
+    <script src="scripts/Tablero.js"></script>
+    <script src="scripts/pacman.js"></script> -->
+    
+    <script>
+        
+        var tablero;
+        var jugadores;
+        var socket = io();
+        var w = 602;//window.innerWidth;
+        var h = 602;//window.innerHeight;
+          
+        socket.on('nuevo jugador tablero', function(jugador){
+
+            jugadores.nuevoJugador(jugador);
+        });
+
+        socket.on('mover tablero', function(jugador){
+            jugadores.moverJugador(jugador.id,jugdor.dir);
+        });
+
+        // socket.on('quitarTecla tablero', function(touch){
+        //     tablero.jugadores[touch.id].teclas[touch.direccion] = false;
+        // });
+
+        function setup(){
+            
+            createCanvas(w,h);
+            background(0,0,0);
+            frameRate(32);
+            imageMode(CENTER);
+
+            try {
+                tablero = new TableroControlador();
+                jugadores = new Jugadores();
+            } catch(e) {
+                console.log(e);
+            }
+
+        }
+
+        function draw(){
+
+            tablero.dibujar();
+            jugadores.actualizar();
+            jugadores.dibujar();
+
+        }
+
+    </script>
+
+  </body>
+</html>

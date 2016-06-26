@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <title>JUGADOR</title>
+    <link rel="stylesheet" href="css/jugador.css">
+  </head>
+  <body>
+
+    <div class="contenedor">
+        
+        <div class="cuad izquierda" data-evento="37"></div>
+        <div class="cuad arriba" data-evento="38"></div>
+        <div class="cuad abajo" data-evento="40"></div>
+        <div class="cuad derecha" data-evento="39"></div>
+
+    </div>
+    
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+        var socket = io();
+        var id = 'Jugador ' + Math.ceil(Math.random() * 10);
+        var teclas = document.getElementsByClassName('cuad');
+
+        function setHandlers(el){
+            el.ontouchstart = function(event){
+                socket.emit('touchstart',{
+                    id: id, 
+                    dir: event.target.dataset.evento
+                });
+            };
+            // el.ontouchend = function(event){
+            //     socket.emit('quitar',{
+            //         id: id,  
+            //         dir: event.target.dataset.evento
+            //     });
+            // };
+        }
+
+        [].forEach.call(teclas,setHandlers);
+        
+        socket.emit('nuevo jugador cliente',{id: id});
+
+    </script>
+    <script>document.write('<script src="http://' + (location.host || '192.168.2.9').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+  </body>
+</html>
