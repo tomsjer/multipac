@@ -1,8 +1,10 @@
-function Jugadores(){
+function Jugadores(tablero){
 
     this.jugadores = {};
+    this.tablero = tablero;
 
     this.nuevoJugador = function(jugador){
+        jugador.tablero = this.tablero;
         this.jugadores[jugador.id] = new JugadorControlador(jugador);
     };
 

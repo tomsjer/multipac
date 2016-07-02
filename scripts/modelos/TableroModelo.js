@@ -26,6 +26,8 @@ function TableroModelo(config){
             f.push(c);
         }
 
+        console.log(f);
+
         return f;
 
     }
@@ -39,6 +41,9 @@ function TableroModelo(config){
     this.estadoGrilla = config.estadoGrilla;
     this.grilla     = grilla.bind(this)(this.filas, this.columnas);
     
+    this.celdaOcupada = function(y,x){
+        return this.grilla[y][x].ocupado;
+    };
 
     return this;
 }

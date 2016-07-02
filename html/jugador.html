@@ -15,7 +15,7 @@
         <div class="cuad derecha" data-evento="39"></div>
 
     </div>
-    
+
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -25,21 +25,29 @@
         var teclas = document.getElementsByClassName('cuad');
 
         function setHandlers(el){
+            
             el.ontouchstart = function(event){
                 socket.emit('touchstart',{
                     id: id, 
                     dir: event.target.dataset.evento
                 });
             };
-            // el.ontouchend = function(event){
-            //     socket.emit('quitar',{
-            //         id: id,  
-            //         dir: event.target.dataset.evento
-            //     });
-            // };
         }
 
-        [].forEach.call(teclas,setHandlers);
+        if(window.navigator.userAgent.match(/(iPhone|Android)/i)){
+            
+            [].forEach.call(teclas,setHandlers);
+        
+        }else{
+            window.onkeydown = function(event){
+                if(event.which === 37 || event.which === 38 || event.which === 39 || event.which === 40){
+                    socket.emit('touchstart',{
+                        id: id, 
+                        dir: event.which.toString()
+                    });
+                }
+            };
+        }
         
         socket.emit('nuevo jugador cliente',{id: id});
 

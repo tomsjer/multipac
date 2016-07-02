@@ -49,11 +49,11 @@
             
             createCanvas(w,h);
             background(0,0,0);
-            frameRate(32);
+            frameRate(16);
 
             try {
                 tablero = new TableroControlador();
-                jugadores = new Jugadores();
+                jugadores = new Jugadores(tablero);
             } catch(e) {
                 console.log(e.stack);
             }
