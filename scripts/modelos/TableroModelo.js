@@ -4,6 +4,10 @@ function TableroModelo(config){
         throw 'TableroModelo espera un obejto de configuracion.';
     }
 
+    if(!config.estadoGrilla || !config.estadoGrilla.length){
+        throw 'TableroModelo espera un objeto de configuracion con la propiedad estadoGrilla[].';
+    }
+
     function grilla(_f,_c){
 
         var f = [];
@@ -13,36 +17,50 @@ function TableroModelo(config){
             var y = (this.alto / _c) * i + this.altoCelda/2;
             var c = [];
             
-            for(var j = 0; j < _f; j++){
+            for(var j = 0; j < _c; j++){
                 var x = (this.ancho / _f) * j + this.anchoCelda/2;
                 
                 c.push({
                     x:x,
                     y:y,
-                    ocupado: this.estadoGrilla[i][j]
+                    estado: this.estadoGrilla[i][j]
                 });
             }
 
             f.push(c);
         }
 
-        console.log(f);
+        console.log('TABLERO: ',f);
 
         return f;
 
     }
 
-    this.ancho      = config.ancho || window.innerWidth;
-    this.alto       = config.alto || window.innerHeight;
-    this.filas      = config.filas;
-    this.columnas   = config.columnas;
-    this.anchoCelda = config.anchoCelda;
-    this.altoCelda  = config.altoCelda;
+
     this.estadoGrilla = config.estadoGrilla;
+    
+    this.filas      = this.estadoGrilla.length;
+    this.columnas   = this.estadoGrilla[0].length;
+
+    this.anchoCelda = (config.anchoCelda | 0) || 20;
+    this.altoCelda  = (config.altoCelda | 0) || 20;
+
+    this.ancho      = 560;//this.columnas * this.anchoCelda;
+    this.alto       = 620;//this.filas * this.altoCelda;
+    
+    
     this.grilla     = grilla.bind(this)(this.filas, this.columnas);
     
     this.celdaOcupada = function(y,x){
-        return this.grilla[y][x].ocupado;
+        return (this.grilla[y][x].estado === 1);
+    };
+
+    this.celdaConComida = function(y,x){
+        return (this.grilla[y][x].estado === 2);
+    };
+
+    this.celdaComida = function(y,x){
+        this.grilla[y][x].estado = 0;
     };
 
     return this;

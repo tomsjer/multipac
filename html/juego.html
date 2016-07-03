@@ -15,6 +15,7 @@
     
     <script src="scripts/vistas/TableroVista.js"></script>
     <script src="scripts/vistas/JugadorVista.js"></script>
+    <script src="scripts/vistas/JugadorPuntajeVista.js"></script>
     
     <script src="scripts/controladores/TableroControlador.js"></script>
     <script src="scripts/controladores/Jugadores.js" ></script>
@@ -29,27 +30,27 @@
         var tablero;
         var jugadores;
         var socket = io();
-        var w = 500;//window.innerWidth;
-        var h = 500;//window.innerHeight;
+        var w = 560;//window.innerWidth;
+        var h = 620;//window.innerHeight;
           
         socket.on('nuevo jugador tablero', function(jugador){
 
             jugadores.nuevoJugador(jugador);
         });
 
-        socket.on('mover tablero', function(jugador){
-            jugadores.moverJugador(jugador.id,jugador.dir);
+        socket.on('comando jugador', function(jugador){
+            jugadores.comandoJugador(jugador.id,jugador.dir);
         });
 
-        // socket.on('quitarTecla tablero', function(touch){
-        //     tablero.jugadores[touch.id].teclas[touch.direccion] = false;
-        // });
+        socket.on('actualizar puntaje',function(jugador){
+            jugadores.actualizarPuntaje(jugador.id);
+        });
 
         function setup(){
             
             createCanvas(w,h);
             background(0,0,0);
-            frameRate(16);
+            frameRate(25);
 
             try {
                 tablero = new TableroControlador();

@@ -10,6 +10,7 @@ function JugadorVista(modelo){
     }
 }
 
+//TODO: solo animo el sprite si avanzo.
 JugadorVista.prototype.dibujar = function(){
     
     var i = Math.floor((frameCount % 4 ));
@@ -17,9 +18,6 @@ JugadorVista.prototype.dibujar = function(){
 
     // DEBUG
     noFill();
-    stroke(255,0,0);
-    rectMode(CENTER);
-    rect(this.modelo.ubicacion.x,this.modelo.ubicacion.y,this.modelo.radio*2,this.modelo.radio*2);
     push();
     translate(this.modelo.ubicacion.x,this.modelo.ubicacion.y);
     rotate(this.modelo.rotActual);

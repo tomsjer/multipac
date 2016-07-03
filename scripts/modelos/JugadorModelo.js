@@ -18,72 +18,21 @@ function JugadorModelo(opciones){
     this.tipo         = 'pacman'; //seteable
     this.moviendo     = false;
     this.radio        = 25;
-    this.ubicacion    = createVector(this.radio,this.radio);
+    this.ubicacion    = createVector(this.radio*3,this.radio*3);
     this.velocidadMag = 10;
     this.velocidad    = createVector(0,0);
     this.tablero      = opciones.tablero;
     this.ubicacionGrilla = createVector(0,0);
 }
 
-JugadorModelo.prototype.mover = function(tecla){
-    if(tecla === '37'){
 
-        this.dirFutura = this.direcciones[0];
-    }
-    else if(tecla === '38'){
-        this.dirFutura = this.direcciones[1];
-    }
-    else if(tecla === '39'){
-        this.dirFutura = this.direcciones[2];
-    }
-    else if(tecla === '40'){
-        this.dirFutura = this.direcciones[3];
-    }
-    
-    
-};
 
-JugadorModelo.prototype.aplicarMover = function(){
-    switch (this.dirFutura) {
-        case 'IZQUIERDA':
 
-            this.velocidad = createVector(-this.velocidadMag,0);
-            this.rotActual = this.rotaciones[0];
-            this.dirActual = this.dirFutura;
-        break;
-    
-        case 'ARRIBA':
-
-            this.velocidad = createVector(0,-this.velocidadMag);
-            this.rotActual = this.rotaciones[1];
-            this.dirActual = this.dirFutura;
-            break;
-
-        case 'DERECHA':
-
-            this.velocidad = createVector(this.velocidadMag,0);
-            this.rotActual = this.rotaciones[2];
-            this.dirActual = this.dirFutura;
-            break;
-
-        case 'ABAJO':
-
-            this.velocidad = createVector(0,this.velocidadMag);
-            this.rotActual = this.rotaciones[3];
-            this.dirActual = this.dirFutura;
-            break;
-
-        default:
-            
-            break;
-    } 
-};
-
+//TODO: actualizar vector aceleracion solo si tengo movimiento
 JugadorModelo.prototype.actualizar = function(){
     
     // Tomar accion solo cuando estoy en limites de grilla
     if(this.ubicacion.x % 50 == 25 && this.ubicacion.y % 50 === 25){
-        
         
         this.setearUbicacionGrilla();
     
@@ -95,9 +44,9 @@ JugadorModelo.prototype.actualizar = function(){
             this.velocidad = createVector(0,0);
         }
 
-        
-        this.limitarPantalla();
-
+        if(this.hayComida()){
+            this.comer();
+        }
     
     }
     
@@ -106,8 +55,6 @@ JugadorModelo.prototype.actualizar = function(){
 
 JugadorModelo.prototype.setearUbicacionGrilla = function(){
 
-
-   // console.log(this.ubicacion.x % this.tablero.anchoCelda(),this.ubicacion.y % this.tablero.altoCelda());
 
     var x  = Math.round(map(this.ubicacion.x,0,width,0,this.tablero.filas() - 1));
     var y  = Math.round(map(this.ubicacion.y,0,height,0,this.tablero.columnas() - 1));
@@ -120,21 +67,7 @@ JugadorModelo.prototype.setearUbicacionGrilla = function(){
         this.ubicacionGrilla.y = y;
         console.log('ubicacionGrilla Y: ' + y);
     }
-    
-   // console.log(this.ubicacion);
 
-};
-
-JugadorModelo.prototype.limitarPantalla = function(){
-
-    var proxUbicacion = p5.Vector.add(this.ubicacion,this.velocidad);
-     
-    if(proxUbicacion.x < 0+this.radio || proxUbicacion.x > width-this.radio){
-        this.velocidad.x = 0;
-    }
-    if(proxUbicacion.y < 0+this.radio || proxUbicacion.y > height-this.radio){
-        this.velocidad.y = 0;
-    }
 };
 
 JugadorModelo.prototype.colisiona = function(dir){
@@ -180,3 +113,83 @@ JugadorModelo.prototype.colisiona = function(dir){
     }
 
 };
+
+JugadorModelo.prototype.aplicarMover = function(){
+    switch (this.dirFutura) {
+        case 'IZQUIERDA':
+
+            this.velocidad = createVector(-this.velocidadMag,0);
+            this.rotActual = this.rotaciones[0];
+            this.dirActual = this.dirFutura;
+        break;
+    
+        case 'ARRIBA':
+
+            this.velocidad = createVector(0,-this.velocidadMag);
+            this.rotActual = this.rotaciones[1];
+            this.dirActual = this.dirFutura;
+            break;
+
+        case 'DERECHA':
+
+            this.velocidad = createVector(this.velocidadMag,0);
+            this.rotActual = this.rotaciones[2];
+            this.dirActual = this.dirFutura;
+            break;
+
+        case 'ABAJO':
+
+            this.velocidad = createVector(0,this.velocidadMag);
+            this.rotActual = this.rotaciones[3];
+            this.dirActual = this.dirFutura;
+            break;
+
+        default:
+            
+            break;
+    } 
+};
+
+JugadorModelo.prototype.comando = function(tecla){
+    if(tecla === '37'){
+
+        this.dirFutura = this.direcciones[0];
+    }
+    else if(tecla === '38'){
+        this.dirFutura = this.direcciones[1];
+    }
+    else if(tecla === '39'){
+        this.dirFutura = this.direcciones[2];
+    }
+    else if(tecla === '40'){
+        this.dirFutura = this.direcciones[3];
+    }
+};
+
+JugadorModelo.prototype.hayComida = function(){
+    return this.tablero.celdaConComida(this.ubicacionGrilla.y,this.ubicacionGrilla.x);
+};
+
+JugadorModelo.prototype.comer = function(){
+    this.tablero.comer(this.ubicacionGrilla.y,this.ubicacionGrilla.x); 
+    this.puntaje += 10;
+    socket.emit('comio jugador',{
+        id: this.id
+    });
+
+};
+
+//FIXME: no se llama nunca
+JugadorModelo.prototype.limitarPantalla = function(){
+
+    var proxUbicacion = p5.Vector.add(this.ubicacion,this.velocidad);
+     
+    if(proxUbicacion.x < 0+this.radio || proxUbicacion.x > width-this.radio){
+        this.velocidad.x = 0;
+    }
+    if(proxUbicacion.y < 0+this.radio || proxUbicacion.y > height-this.radio){
+        this.velocidad.y = 0;
+    }
+};
+
+

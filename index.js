@@ -24,13 +24,13 @@ io.on('connection', function(socket){
     io.emit('nuevo jugador tablero',jugador);
   });
 
-  socket.on('touchstart', function(touch){
-    console.log(touch.id + ' ' + touch.dir);
-    io.emit('mover tablero',touch);
+  socket.on('touchstart', function(toque){
+    console.log(toque.id + ' ' + toque.dir);
+    io.emit('comando jugador',toque);
   });
-  
-  socket.on('touchend', function(touch){
-    io.emit('quitarTecla talero',touch);
+
+  socket.on('comio jugador',function(jugador){
+    io.emit('actualizar puntaje',jugador);
   });
   
 });

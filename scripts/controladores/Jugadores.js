@@ -8,8 +8,12 @@ function Jugadores(tablero){
         this.jugadores[jugador.id] = new JugadorControlador(jugador);
     };
 
-    this.moverJugador = function(jugador,dir){
-        this.jugadores[jugador].mover(dir);
+    this.comandoJugador = function(jugador,dir){
+        this.jugadores[jugador].comando(dir);
+    };
+
+    this.actualizarPuntaje = function(jugador){
+        this.jugadores[jugador].actualizarPuntaje();
     };
 
     this.actualizar = function(){

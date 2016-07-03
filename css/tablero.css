@@ -3,7 +3,7 @@
 html, body {
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
     background: #000;
 }
 canvas {
@@ -12,6 +12,23 @@ canvas {
     margin: auto;
     display: block;
     border: solid 2px #ccc;
-    margin-top: 120px;
+    /* margin-top: 120px; */
+}
 
+.jugadorPuntaje {
+    border: solid 1px white;
+    padding: 10px;
+    color: white;
+    font-family: 'Courier new';
+    max-width: 90px;
+    margin: 20px 10px;
+}
+
+.jugadorPuntaje p {
+
+}
+
+.jugadorPuntaje h4 {
+    padding: 10px 0px;
+    border-top: solid 1px white;
 }
