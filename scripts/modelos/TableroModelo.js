@@ -14,11 +14,11 @@ function TableroModelo(config){
 
         for(var i = 0; i < _f; i++){
 
-            var y = (this.alto / _c) * i + this.altoCelda/2;
+            var y = i * this.altoCelda + this.altoCelda/2;//(this.alto / _c) * i + this.altoCelda/2;
             var c = [];
             
             for(var j = 0; j < _c; j++){
-                var x = (this.ancho / _f) * j + this.anchoCelda/2;
+                var x = j * this.anchoCelda + this.anchoCelda/2;//(this.ancho / _f) * j + this.anchoCelda/2;
                 
                 c.push({
                     x:x,
@@ -45,14 +45,14 @@ function TableroModelo(config){
     this.anchoCelda = (config.anchoCelda | 0) || 20;
     this.altoCelda  = (config.altoCelda | 0) || 20;
 
-    this.ancho      = 560;//this.columnas * this.anchoCelda;
-    this.alto       = 620;//this.filas * this.altoCelda;
+    this.ancho      = this.columnas * this.anchoCelda;
+    this.alto       = this.filas * this.altoCelda;
     
     
     this.grilla     = grilla.bind(this)(this.filas, this.columnas);
     
     this.celdaOcupada = function(y,x){
-        return (this.grilla[y][x].estado === 1);
+        return (this.grilla[y][x].estado !== 0 && this.grilla[y][x].estado !== 2 );
     };
 
     this.celdaConComida = function(y,x){
