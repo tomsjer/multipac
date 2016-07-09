@@ -1,23 +1,36 @@
  function JugadorControlador(opciones){
     
-    this.modelo = new JugadorModelo(opciones);
+    this.modelo = this.tipoJugador(opciones);
     this.vista = new JugadorVista(this.modelo);
     this.vistaPuntaje = new JugadorPuntajeVista(this.modelo);
 
 }
+JugadorControlador.prototype = {
+  comando:function(tecla){
+      this.modelo.comando(tecla); // Dir. Tecla es una implementacion especifica
+  },
+  actualizar:function(){
+       this.modelo.actualizar(); 
+  },
+  dibujar:function(){
+       this.vista.dibujar(); 
+  },
+  actualizarPuntaje:function(){
+       this.vistaPuntaje.actualizar(); 
+  },
+  tipoJugador:function(opciones) {
 
-JugadorControlador.prototype.comando = function(tecla){
-    this.modelo.comando(tecla); // Dir. Tecla es una implementacion especifica
-};
+    var jugador;
 
-JugadorControlador.prototype.actualizar = function(){
-     this.modelo.actualizar(); 
-};
+    switch(opciones.tipo){
+      case 'pacman':
+        jugador = new PacmanModelo(opciones);
+        break;
 
-JugadorControlador.prototype.dibujar = function(){
-     this.vista.dibujar(); 
-};
-
-JugadorControlador.prototype.actualizarPuntaje = function(){
-     this.vistaPuntaje.actualizar(); 
+      default:
+        throw 'JugadorControlador espera un tipo de jugador en las opciones!';
+        break;
+    }
+    return jugador;
+  }
 };
