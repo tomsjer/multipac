@@ -1,0 +1,29 @@
+{
+  "name": "multiplayer-pacman",
+  "version": "1.0.0",
+  "description": "Version multiplayer del juego pacman",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.4.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomsjer/multiplayer-pacman.git"
+  },
+  "keywords": [
+    "javascript",
+    "socket.io",
+    "canvas"
+  ],
+  "author": "tomsjer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomsjer/multiplayer-pacman/issues"
+  },
+  "homepage": "https://github.com/tomsjer/multiplayer-pacman#readme"
+}
