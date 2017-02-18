@@ -104,3 +104,30 @@ button {
     content: '\21E8'; //&#8680;
 }
 
+#selectContainer{
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.85);
+}
+
+#selectContainer.oculto{
+    display: none !important;
+}
+
+#tipoJugador{
+    position: absolute;
+    top: calc(50% - 24px);
+    left: calc(50% - 100px);
+    -webkit-appearance: none;
+    padding: 10px;
+    font-family: 'Courier New';
+    font-size: 18px;
+    width: 200px;
+    height: 48px;
+}
+
+
+
+

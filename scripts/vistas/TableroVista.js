@@ -1,14 +1,17 @@
 function TableroVista(modelo){
 
     this.modelo = modelo;
-    this.colorBorde = color('#111');
-    this.colorPared = color('#000');
-    this.colorComida = color('#fff');
-    this.radioComida = 4;
+    this.colorBorde = '#111';
+    this.colorPared = '#000';
+    this.colorComida = '#fff';
+    this.radioComida = 2;
+    this.comida = new Path2D();
+    this.comida.arc(12,12,this.radioComida,0,360,false);
 
     this.celdasSprite = new Array(34);
     for(var i = 0; i < this.celdasSprite.length; i++){
-        this.celdasSprite[i] = loadImage('img/tablero/cbd-'+i+'.png');
+        this.celdasSprite[i] = new Image();
+        this.celdasSprite[i].src = 'img/tablero/cbd-'+i+'.png';/*loadImage('img/tablero/cbd-'+i+'.png');*/
     }
 
     this.celdasMap = {
@@ -60,35 +63,36 @@ function TableroVista(modelo){
 
 TableroVista.prototype.dibujar = function(){
     
-    background(0,0,0);
+    /*background(0,0,0);
     imageMode(CENTER);
-    rectMode(CENTER);
-    this.modelo.grilla.forEach(function(cols){
-        cols.forEach(function(celda){
-            
+    rectMode(CENTER);*/
 
+    /*ctx.fillStyle = "black";*/
+    this.modelo.grilla.forEach(function(cols,i){
+        cols.forEach(function(celda,j){
+            
+            ctx.save();
+            ctx.translate(celda.x - this.modelo.anchoCelda/2, celda.y - this.modelo.altoCelda/2);
             if(celda.estado !== 0 && celda.estado !== 1 && celda.estado !== 2  ){
 
-                image(this.celdasSprite[this.celdasMap[celda.estado]],celda.x,celda.y);
+                /*image(this.celdasSprite[this.celdasMap[celda.estado]],celda.x,celda.y);*/
+                ctx.drawImage(this.celdasSprite[this.celdasMap[celda.estado]],0,0,this.modelo.anchoCelda,this.modelo.altoCelda);
                 
             }
-            // Celda ocupada
+            /*// Celda ocupada
             if(celda.estado === 1){
                 
                 stroke(this.colorBorde);
                 fill(this.colorPared);
                 rect(celda.x,celda.y,this.modelo.anchoCelda,this.modelo.altoCelda);
-            }    
+            }*/    
             // Celda con comida
             else if(celda.estado === 2){
 
-                stroke(this.colorBorde);
-                noFill();
-                rect(celda.x,celda.y,this.modelo.anchoCelda,this.modelo.altoCelda);
-                noStroke();
-                fill(this.colorComida);
-                ellipse(celda.x,celda.y,this.radioComida,this.radioComida);
+                ctx.fillStyle = this.colorComida;
+                ctx.fill(this.comida);
             }
+            /*
             // Celda libre
             else{
                 //noStroke();
@@ -96,7 +100,10 @@ TableroVista.prototype.dibujar = function(){
                 noFill();
                 rect(celda.x,celda.y,this.modelo.anchoCelda,this.modelo.altoCelda);
                 
-            }
+            }*/
+           /* ctx.strokeStyle = this.colorBorde;
+            ctx.strokeRect(0, 0, this.modelo.anchoCelda,this.modelo.altoCelda);*/
+            ctx.restore();
 
         },this);
     },this);

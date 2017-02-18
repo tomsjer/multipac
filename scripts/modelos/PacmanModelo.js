@@ -6,11 +6,14 @@ PacmanModelo.prototype = {
 
   actualizar:function(){
 
-    JugadorModelo.prototype.actualizar.call(this);
+    if(this.estado !== 'muerto'){
+        JugadorModelo.prototype.actualizar.call(this);
 
-    if(this.hayComida()){
-        this.comer();
+        if(this.hayComida()){
+            this.comer();
+        }
     }
+    
   },
 
   hayComida : function(){
@@ -23,6 +26,10 @@ PacmanModelo.prototype = {
       socket.emit('comio jugador',{
           id: this.id
       });
+  },
+  murio:function(){
+    this.estado = 'muerto';
+    this.velocidad = createVector(0,0);
   }
 };
 

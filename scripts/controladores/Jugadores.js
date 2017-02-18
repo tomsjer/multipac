@@ -4,7 +4,13 @@ function Jugadores(tablero){
     this.tablero = tablero;
 
     this.nuevoJugador = function(jugador){
+        
         jugador.tablero = this.tablero;
+
+        if(jugador.id === 'fantasma'){
+            jugador.pacman = this.jugadores.pacman.modelo;
+        }
+
         this.jugadores[jugador.id] = new JugadorControlador(jugador);
     };
 
@@ -17,13 +23,10 @@ function Jugadores(tablero){
     };
 
     this.actualizar = function(){
-        
+
         for(var jugador in this.jugadores){
             this.jugadores[jugador].actualizar();
         }
-        // this.jugadores.forEach(function(jugador){
-        //     jugador.actualizar();
-        // },this);
     };
 
     this.dibujar = function(){
@@ -31,10 +34,6 @@ function Jugadores(tablero){
             this.jugadores[jugador].dibujar();
         }
     };
-
-    // this.jugadores.forEach(function(jugador){
-    //     jugador.dibujar();
-    // },this);
 
     return this;
 }

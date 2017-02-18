@@ -1,0 +1,2030 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fi",
+				"fi\tfill()"
+			],
+			[
+				"li",
+				"lit\tlineTo(x,y)"
+			],
+			[
+				"st",
+				"stst\tstrokeStyle {Prop}"
+			],
+			[
+				"s",
+				"stst\tstrokeStyle {Prop}"
+			],
+			[
+				"re",
+				"re\trect()"
+			],
+			[
+				"tr",
+				"trsl\ttranslate(x,y)"
+			],
+			[
+				"removeC",
+				"removeChild(child)\tNode"
+			],
+			[
+				"getElemen",
+				"getElementById(id)\tElement"
+			],
+			[
+				"apped",
+				"appendChild(aChild)\tNode"
+			],
+			[
+				"getElements",
+				"getElementsByTagName(name)\tElement"
+			],
+			[
+				"ubicacion",
+				"ubicacionGrilla"
+			],
+			[
+				"ubicac",
+				"ubicacionGrilla"
+			],
+			[
+				"foreac",
+				"forEach(callback)\tArray"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"touch",
+				"touchend\tEvent"
+			],
+			[
+				"getEleme",
+				"getElementsByTagName(name)\tElement"
+			],
+			[
+				"append",
+				"appendChild(aChild)\tNode"
+			],
+			[
+				"inn",
+				"innerHTML\tElement"
+			],
+			[
+				"clearI",
+				"clearInterval(intervalID)\tWindow"
+			],
+			[
+				"forEac",
+				"forEach(callback)\tArray"
+			],
+			[
+				"des",
+				"destinatarioNombre"
+			],
+			[
+				"for",
+				"formMsg"
+			],
+			[
+				"form-",
+				"form-submit-ok"
+			],
+			[
+				"remove",
+				"removeClass"
+			],
+			[
+				"mail",
+				"mailAdminCC"
+			],
+			[
+				"total",
+				"totalAdicionales"
+			],
+			[
+				"tarifa",
+				"tarifaAdicionales"
+			],
+			[
+				"load",
+				"load\t.load()"
+			],
+			[
+				"tarNo",
+				"tarNoctDevolucion"
+			],
+			[
+				"tarN",
+				"tarNoctEntrega"
+			],
+			[
+				"array_",
+				"array_merge"
+			],
+			[
+				"tar",
+				"tarNoctEntrega"
+			],
+			[
+				"tarNoc",
+				"tarNoctDevolucion"
+			],
+			[
+				"keys",
+				"array_keys"
+			],
+			[
+				"key",
+				"keys"
+			],
+			[
+				"tarifas",
+				"tarifasExt"
+			],
+			[
+				"to",
+				"total"
+			],
+			[
+				"veh",
+				"vehiculos"
+			],
+			[
+				"ve",
+				"vehiculos"
+			],
+			[
+				"is_n",
+				"is_null"
+			],
+			[
+				"ti",
+				"timestamp"
+			],
+			[
+				"t",
+				"timestamp"
+			],
+			[
+				"max-",
+				"max-width"
+			],
+			[
+				"tipo",
+				"tipoTarifa"
+			],
+			[
+				"sen",
+				"sendMailPHPMailer($_origen, $_origenPass, $_destinatario, $_destinatarioNombre, $_asunto, $_data, $_htmlTemplate)\tmixed"
+			],
+			[
+				"html",
+				"htmlTemplate"
+			],
+			[
+				"nue",
+				"nuevoCliente"
+			],
+			[
+				"json",
+				"json_encode"
+			],
+			[
+				"scrol",
+				"scrollTop\t.scrollTop()"
+			],
+			[
+				"Rec",
+				"Records"
+			],
+			[
+				"vehi",
+				"vehiculo"
+			],
+			[
+				"email",
+				"emailConfirm"
+			],
+			[
+				"each",
+				"each\t.each()"
+			],
+			[
+				"replace",
+				"replaceWith\t.replaceWith()"
+			],
+			[
+				"attr",
+				"attr\t.attr() - single"
+			],
+			[
+				"setT",
+				"setTimestamp($fecha, $parse)\tmixed"
+			],
+			[
+				"date_",
+				"date_create"
+			],
+			[
+				"subtr",
+				"substr"
+			],
+			[
+				"url",
+				"urldecode"
+			],
+			[
+				"pre",
+				"prefix"
+			],
+			[
+				"http_buil",
+				"http_build_query"
+			],
+			[
+				"val",
+				"valijas"
+			],
+			[
+				"font-s",
+				"font-size"
+			],
+			[
+				"showClose",
+				"showCloseLabel"
+			],
+			[
+				"type",
+				"typeof"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"hasta",
+				"hastaOptions"
+			],
+			[
+				"DateT",
+				"DateTimePicker"
+			],
+			[
+				"fotn",
+				"font-size"
+			],
+			[
+				"mar",
+				"margin-left"
+			],
+			[
+				"no-",
+				"no-repeat"
+			],
+			[
+				"ma",
+				"margin-left"
+			],
+			[
+				"imprt",
+				"important"
+			],
+			[
+				"comm",
+				"zip_entry_compressionmethod"
+			],
+			[
+				"serial",
+				"serializeArray\t.serializeArray()"
+			],
+			[
+				"sub",
+				"submit\t.submit()"
+			],
+			[
+				"verde",
+				"verde-oscuro"
+			],
+			[
+				"font-",
+				"font-family"
+			],
+			[
+				"roboto-",
+				"roboto-bold"
+			],
+			[
+				"stora",
+				"storageAvailable"
+			],
+			[
+				"Date",
+				"DateTimePicker"
+			],
+			[
+				"boot",
+				"bootstrap-datetimepicker-widget"
+			],
+			[
+				"rojo",
+				"rojo-oscuro"
+			],
+			[
+				"rojo-",
+				"rojo-oscuro"
+			],
+			[
+				"bakc",
+				"background"
+			],
+			[
+				"import",
+				"important"
+			],
+			[
+				"flag",
+				"flagTop"
+			],
+			[
+				"margin-",
+				"margin-top"
+			],
+			[
+				"verde-",
+				"verde-claro-claro"
+			],
+			[
+				"pad",
+				"padding-left"
+			],
+			[
+				"article",
+				"article-header"
+			],
+			[
+				"inline",
+				"inline-block"
+			],
+			[
+				"bt",
+				"bdt\tborder-top"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"btn",
+				"btn-secondary-border"
+			],
+			[
+				"read",
+				"ready\t$(document).ready"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"transa",
+				"transparent"
+			],
+			[
+				"bgco",
+				"background-color"
+			],
+			[
+				"back",
+				"background-size"
+			],
+			[
+				"Ro",
+				"Roboto-Medium"
+			],
+			[
+				"S",
+				"Syncopate"
+			],
+			[
+				"Sy",
+				"Syncopate-Regular"
+			],
+			[
+				"Robo",
+				"Roboto-Bold"
+			],
+			[
+				"Roboto-",
+				"Roboto-Bold"
+			],
+			[
+				"include",
+				"include\t@include"
+			],
+			[
+				"padd",
+				"padding"
+			],
+			[
+				"init",
+				"initHighcharts"
+			],
+			[
+				"alpaca",
+				"alpacaIds"
+			],
+			[
+				"encuesta",
+				"encuestaId"
+			],
+			[
+				"area",
+				"areaTablas"
+			],
+			[
+				"estadi",
+				"estadistica-container"
+			],
+			[
+				"Res",
+				"RespuestaTableView"
+			],
+			[
+				"marg",
+				"no-margin"
+			],
+			[
+				"respuesta",
+				"respuestaDB"
+			],
+			[
+				"form",
+				"formulario"
+			],
+			[
+				"res",
+				"responsables"
+			],
+			[
+				"Back",
+				"BackbonePouch"
+			],
+			[
+				"couch_",
+				"couch_url"
+			],
+			[
+				"enceusta",
+				"encuestador"
+			],
+			[
+				"cou",
+				"couch_db_remote"
+			],
+			[
+				"pa",
+				"param\t@param"
+			],
+			[
+				"couch",
+				"couch_db_local"
+			],
+			[
+				"alert",
+				"alertEl"
+			],
+			[
+				"bower",
+				"bower_components"
+			],
+			[
+				"sam",
+				"small\tTag"
+			],
+			[
+				"abs",
+				"absolute"
+			],
+			[
+				"appView",
+				"appView-container"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "scripts/modelos/JugadorModelo.js",
+			"settings":
+			{
+				"buffer_size": 7404,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/modelos/FantasmaModelo.js",
+			"settings":
+			{
+				"buffer_size": 587,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scripts/modelos/TableroModelo.js",
+			"settings":
+			{
+				"buffer_size": 1752,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/modelos/PacmanModelo.js",
+			"settings":
+			{
+				"buffer_size": 748,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "html/jugador.html",
+			"settings":
+			{
+				"buffer_size": 2441,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/vistas/TableroVista.js",
+			"settings":
+			{
+				"buffer_size": 3207,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/vistas/FantasmaVista.js",
+			"settings":
+			{
+				"buffer_size": 774,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/vistas/JugadorVista.js",
+			"settings":
+			{
+				"buffer_size": 817,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/vistas/PacmanVista.js",
+			"settings":
+			{
+				"buffer_size": 1751,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "html/juego.html",
+			"settings":
+			{
+				"buffer_size": 7531,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/utils.js",
+			"settings":
+			{
+				"buffer_size": 2663,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.js",
+			"settings":
+			{
+				"buffer_size": 1087,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "css/jugador.css",
+			"settings":
+			{
+				"buffer_size": 1956,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "css/tablero.css",
+			"settings":
+			{
+				"buffer_size": 719,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/controladores/Jugadores.js",
+			"settings":
+			{
+				"buffer_size": 881,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/controladores/JugadorControlador.js",
+			"settings":
+			{
+				"buffer_size": 1337,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 273.0,
+		"last_filter": "disable",
+		"selected_items":
+		[
+			[
+				"disable",
+				"Package Control: Disable Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"keybind",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"indent ",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"html",
+				"HTMLPrettify"
+			],
+			[
+				"git:diff",
+				"Git: Diff Current File"
+			],
+			[
+				"setsyncss",
+				"Set Syntax: CSS3"
+			],
+			[
+				"livere",
+				"Snippet: Insert livereload.js script"
+			],
+			[
+				"disa",
+				"Package Control: Disable Package"
+			],
+			[
+				"setsynjs",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"json",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"instl",
+				"Package Control: Install Package"
+			],
+			[
+				"enableli",
+				"LiveReload: Enable/disable plug-ins"
+			],
+			[
+				"liveres",
+				"Snippet: Insert livereload.js script"
+			],
+			[
+				"live",
+				"LiveReload: Enable/disable plug-ins"
+			],
+			[
+				"colot",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"inden",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"listp",
+				"Package Control: List Packages"
+			],
+			[
+				"toggle",
+				"SublimeLinter: Toggle Linter"
+			],
+			[
+				"inde",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"bro",
+				"SFTP: Browse Remote…"
+			],
+			[
+				"linter",
+				"SublimeLinter: Toggle Linter"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"packa",
+				"Package Control: List Packages"
+			],
+			[
+				"ke",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				"lis",
+				"Package Control: List Packages"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"disable linter",
+				"SublimeLinter: Disable Linter"
+			],
+			[
+				"toggle l",
+				"SublimeLinter: Toggle Linter"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"key",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				"linter se",
+				"Preferences: SublimeLinter Key Bindings – User"
+			],
+			[
+				"sett",
+				"Preferences: Settings - Default"
+			],
+			[
+				"use",
+				"Preferences: Settings - User"
+			],
+			[
+				"user",
+				"Preferences: Settings - User"
+			],
+			[
+				"br",
+				"Preferences: Browse Packages"
+			],
+			[
+				"Snippet: get",
+				"Snippet: getset"
+			],
+			[
+				"Snippet: getset",
+				"Snippet: getset"
+			],
+			[
+				"Snippet: getse",
+				"Snippet: Create getter and setter methods"
+			],
+			[
+				"instAL",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"Packa",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 547.0
+	},
+	"console":
+	{
+		"height": 395.0,
+		"history":
+		[
+			"sublime.log_indexing(True)",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/tom/git/pacla"
+	],
+	"file_history":
+	[
+		"/Users/tom/git/pacla/scripts/vistas/PacmanVista.js",
+		"/Users/tom/git/pacla/scripts/vistas/JugadorVista.js",
+		"/Users/tom/git/pacla/img/Screen Shot 2016-07-03 at 11.20.02 AM.png",
+		"/Users/tom/git/pacla/scripts/Pacman.proto.js",
+		"/Users/tom/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/tom/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/tom/git/pacla/utils/utils.js",
+		"/Users/tom/git/pacla/scripts/controladores/juego.js",
+		"/Users/tom/git/pacla/scripts/pacman.js",
+		"/Users/tom/git/pacla/scripts/Tablero.js",
+		"/Users/tom/git/pacla/scripts/modelos/TableroModelo.js",
+		"/Users/tom/git/pacla/scripts/juego.js",
+		"/Users/tom/git/pacla/css/jugador.css",
+		"/Users/tom/git/p5js/Auto_dinamic.js",
+		"/Users/tom/git/pacla/scripts/p5.js",
+		"/Users/tom/git/pacla/jugador.html",
+		"/Users/tom/git/pacla/tablero.html",
+		"/Users/tom/git/pacla/index.js",
+		"/Users/tom/git/p5js/index.html",
+		"/Users/tom/git/pacla/scripts/index.js",
+		"/Users/tom/git/chat-example/jugador.html",
+		"/Users/tom/git/chat-example/index.html",
+		"/Users/tom/git/chat-example/tablero.html",
+		"/Users/tom/git/chat-example/index.js",
+		"/Users/tom/Desktop/km0-php/contacto.1c26a0d7.js",
+		"/Users/tom/Desktop/km0-php/email.php",
+		"/Users/tom/git/p5js/Walker.js",
+		"/Users/tom/git/p5js/libraries/p5.js",
+		"/Users/tom/Documents/Class1.js",
+		"/Users/tom/git/p5js/scripts/config.js",
+		"/Users/tom/git/p5js/scripts/main.js",
+		"/Users/tom/git/KM0/bak/contacto.html",
+		"/Users/tom/git/KM0/bak/flota.html",
+		"/Users/tom/git/KM0/bak/reservas.html",
+		"/Users/tom/git/KM0/bak/index.html",
+		"/Users/tom/git/KM0/app/contacto.html",
+		"/Users/tom/git/KM0/app/flota.html",
+		"/Users/tom/git/KM0/app/reservas.html",
+		"/Users/tom/git/KM0/app/index.html",
+		"/Users/tom/git/KM0/bak/styles/main.df4055eb.css",
+		"/Applications/reservas.bak.html",
+		"/Users/tom/git/KM0/app/scripts/reservas-checkout.js",
+		"/Users/tom/git/KM0/app/scripts/inicio.js",
+		"/Users/tom/git/KM0/app/scripts/offline.html",
+		"/private/var/folders/72/fmkzlrcn4v7gktyfmt4r_gdw0000gn/T/fz3temp-1/index.html",
+		"/private/var/folders/72/fmkzlrcn4v7gktyfmt4r_gdw0000gn/T/fz3temp-1/.htaccess",
+		"/Users/tom/git/KM0/dist/reservas.html",
+		"/Users/tom/git/KM0/app/styles/main.scss",
+		"/Users/tom/git/KM0/app/scripts/utils.js",
+		"/Users/tom/git/KM0/Gruntfile.js",
+		"/Users/tom/git/KM0/app/scripts/reservas-flota.js",
+		"/Users/tom/git/KM0/dist/php/data.php",
+		"/Users/tom/git/KM0/dist/php/disponibilidad.php",
+		"/Users/tom/git/KM0/app/scripts/reservas-fecha.js",
+		"/Users/tom/git/KM0/app/php/data.php",
+		"/Users/tom/git/KM0/app/php/disponibilidad.php",
+		"/Users/tom/git/KM0/dist/index.html",
+		"/Users/tom/git/KM0/dist/scripts/flota.ebcef4ef.js",
+		"/Users/tom/git/KM0/dist/index.min.html",
+		"/Users/tom/git/KM0/dist/flota.html",
+		"/Users/tom/git/KM0/app/styles/modulos/_variables.scss",
+		"/Users/tom/git/KM0/app/scripts/flota.js",
+		"/Users/tom/git/KM0/dist/flota.min.html",
+		"/Users/tom/Library/Application Support/Sublime Text 3/Packages/Minify/Minify.sublime-settings",
+		"/Users/tom/Library/Application Support/Sublime Text 3/Packages/User/Minify.sublime-settings",
+		"/Users/tom/git/KM0/app/styles/modulos/_botones.scss",
+		"/Users/tom/git/KM0/.tmp/scripts/reservas-info.js",
+		"/Users/tom/git/KM0/app/php/phpmailer.php",
+		"/Users/tom/git/KM0/dist/php/phpmailer.php",
+		"/Users/tom/git/KM0/app/php/utils.php",
+		"/Users/tom/git/KM0/app/php/reserva.php",
+		"/Users/tom/git/KM0/dist/php/cliente.php",
+		"/Users/tom/git/KM0/app/php/enviar.php",
+		"/Users/tom/Desktop/vendor.53516aa3.css",
+		"/Users/tom/Desktop/main.c1dd4b40.css",
+		"/Users/tom/git/KM0/app/styles/modulos/_navbar.scss",
+		"/Users/tom/git/KM0/app/scripts/banner.js",
+		"/Users/tom/git/KM0/app/scripts/contacto.js",
+		"/Users/tom/git/KM0/app/scripts/datetimepicker.js",
+		"/Users/tom/git/KM0/app/scripts/main.js",
+		"/Users/tom/git/KM0/app/scripts/reservas-info.js",
+		"/Users/tom/git/KM0/dist/styles/main.c1dd4b40.css",
+		"/Users/tom/git/KM0/dist/scripts/flota.24257819.js",
+		"/Users/tom/git/KM0/dist/scripts/contacto.da47752c.js",
+		"/Users/tom/git/KM0/dist/scripts/reservas.93e54bdd.js",
+		"/Users/tom/git/KM0/dist/contacto.html",
+		"/Users/tom/git/KM0/app/styles/modulos/_flota.scss",
+		"/Users/tom/git/KM0/bower.json",
+		"/Users/tom/git/KM0/dist/php/reserva.php",
+		"/Users/tom/git/KM0/dist/php/utils.php",
+		"/Users/tom/git/KM0/app/php/email-template-reserva.php",
+		"/Users/tom/git/KM0/dist/scripts/reservas.e78fb1e6.js",
+		"/Users/tom/git/KM0/dist/scripts/main.a00ef5b4.js",
+		"/Users/tom/git/KM0/app/styles/modulos/_jssor.scss",
+		"/Users/tom/git/KM0/app/php/email-template-consulta.php",
+		"/Users/tom/git/KM0/app/php/cliente.php",
+		"/Users/tom/git/KM0/dist/scripts/reservas.e13b35e5.js",
+		"/Users/tom/git/KM0-admin/cliente.php",
+		"/Users/tom/git/KM0-admin/reserva.php",
+		"/Users/tom/git/KM0/dist/reservas-submit.html",
+		"/Users/tom/git/KM0/dist/scripts/main.029bb6a3.js",
+		"/Users/tom/git/KM0/dist/php/mail.php",
+		"/Users/tom/git/KM0/dist/scripts/reservas.f66ef545.js",
+		"/Users/tom/git/KM0/dist/php/email-template-reserva.php",
+		"/Users/tom/git/sarasa/km0-email-reserva.html",
+		"/Users/tom/git/sarasa/km0-email-reserva.new.html",
+		"/Users/tom/git/KM0/app/php/mail.php",
+		"/Users/tom/git/KM0/dist/scripts/reservas.bce23042.js",
+		"/Users/tom/git/KM0/dist/scripts/reservas.5b7535cf.js",
+		"/Users/tom/git/KM0/dist/scripts/reservas.f2806cde.js",
+		"/Users/tom/git/KM0/dist/scripts/reservas.94827acd.js",
+		"/Users/tom/git/KM0/dist/scripts/reservas.64557bff.js",
+		"/Users/tom/git/KM0/bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js",
+		"/Users/tom/git/KM0/bower_components/eonasdan-bootstrap-datetimepicker/bower.json",
+		"/Users/tom/git/KM0/bower_components/moment/bower.json",
+		"/Users/tom/git/KM0/.editorconfig",
+		"/Users/tom/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/tom/Desktop/temp.php",
+		"/Users/tom/git/KM0/dist/scripts/flota.c445298d.js",
+		"/Users/tom/git/KM0/dist/scripts/contacto.0c51b8eb.js",
+		"/Users/tom/git/sarasa/index.php",
+		"/Users/tom/git/KM0/dist/scripts/inicio.0af4db01.js",
+		"/Users/tom/git/sarasa/php/handleForm.php",
+		"/Users/tom/git/sarasa/php/funciones/horas.php",
+		"/Users/tom/git/sarasa/php/funciones/tarifas.php",
+		"/Users/tom/git/sarasa/index_km0_disponibilidad.php",
+		"/Users/tom/git/KM0/.tmp/scripts/reservas-fecha.js",
+		"/Users/tom/git/KM0/dist/scripts/contacto.76cc324f.js"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"/Users/tom/git/KM0/app/scripts",
+			"/Users/tom/git/KM0/app/styles",
+			"/Users/tom/git/KM0/dist/php,/Users/tom/git/KM0/app/php",
+			"/Users/tom/git/KM0/dist/",
+			"/Users/tom/git/KM0",
+			"/Users/tom/git/JDE/codigo/www/app/scripts",
+			"/Users/tom/git/JDE/codigo/www/"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"context",
+			"-18",
+			"- 18",
+			"celda",
+			"counter",
+			"fps",
+			"lastCalledTime",
+			"frameCount",
+			"frameC",
+			"frame",
+			"add",
+			"color(",
+			" i",
+			"i",
+			"sprite",
+			"2",
+			"sm",
+			"pacmanSprite",
+			"diametro",
+			"//this.ubicacionGrilla",
+			"100",
+			"/2 )",
+			"floor",
+			"round",
+			"ancho",
+			"diffBorde",
+			"- 1",
+			"01,02",
+			"02,01",
+			"25,24",
+			"01",
+			"01,",
+			"01",
+			"S",
+			"//",
+			"1,",
+			"2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,2,",
+			",2,2,2,2,2,2,",
+			",2,2,2,2,2,",
+			",2,2,2,2,",
+			",2,2,2,",
+			",2,2,",
+			",2,",
+			"1,",
+			",1,1,1,1,1,1,1,1,1,1,",
+			",1,1,1,1,1,1,1,1,1,",
+			",1,1,1,1,1,1,1,1,",
+			",1,1,1,1,1,1,1,",
+			",1,1,1,1,1,1,",
+			",1,1,1,1,1,",
+			",1,1,1,1,",
+			",1,1,1,",
+			",1,1,",
+			",1,",
+			"2,",
+			"1",
+			"1,",
+			"1]",
+			"1,",
+			" i",
+			"i",
+			"celdasBordeDoble",
+			"20",
+			"*0.5",
+			"this.modelo",
+			"0",
+			"1,",
+			"1]",
+			"1],",
+			"],",
+			"this.modelo.",
+			"0,",
+			"[0",
+			"0],",
+			"this.color",
+			"stroke(100,100,100);",
+			"stroke(100,100,100)",
+			"mover",
+			"touch",
+			"c.",
+			"c",
+			"this.",
+			"ocupado",
+			"colisiona = true;",
+			"this.rotActual",
+			"dirActual",
+			"Actual",
+			"dirActual",
+			"colisiona = true;",
+			"return true",
+			"if(this.dirActual ===",
+			"return true;",
+			" % 50",
+			"false",
+			"this.velocidad = createVector(0,0);",
+			"switch (this.dirActual) {",
+			"this.velocidad =",
+			"this.velocidad",
+			"this.rotActual ",
+			"// this.velocidad",
+			" this.velocidad ",
+			"anchoCelda",
+			"this.radio",
+			"floor",
+			"X",
+			"x",
+			"-this.radio",
+			"round"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"'",
+			"",
+			"'",
+			"!== ",
+			"!==",
+			"'",
+			"\n\t\t",
+			"\t\t$this->load->library('jquery');\n",
+			"cliente",
+			"reserva",
+			"0",
+			"santi",
+			"$this",
+			"$CI"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": true,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "scripts/modelos/JugadorModelo.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7404,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								368,
+								368
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "f6511f0c",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "scripts/modelos/FantasmaModelo.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 587,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								201,
+								201
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "1f483904",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 4.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "scripts/modelos/TableroModelo.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1752,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1018,
+								1018
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "0d1d4abf",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 151.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "scripts/modelos/PacmanModelo.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 748,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								58,
+								58
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "5e8595d4",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "html/jugador.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2441,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1178,
+								1178
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "html",
+							"buffer_scroll_name": "39e3d2a6",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"sftp_duplicate_views": 0,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 309.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "scripts/vistas/TableroVista.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3207,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2999,
+								2999
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "e1a8eed2",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "scripts/vistas/FantasmaVista.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 774,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								235,
+								235
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "plain text",
+							"buffer_scroll_name": "51cf08b0",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "scripts/vistas/JugadorVista.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 817,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								188,
+								188
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "javascriptnext",
+							"buffer_scroll_name": "ab5135d1",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "scripts/vistas/PacmanVista.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1751,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								876,
+								876
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "plain text",
+							"buffer_scroll_name": "15b83647",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"sftp_duplicate_views": 0,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 9,
+					"file": "html/juego.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7531,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1726,
+								1726
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "html",
+							"buffer_scroll_name": "0dd911ce",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 560.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "html/jugador.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2441,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1178,
+								1178
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "html",
+							"buffer_scroll_name": "39e3d2a6",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"sftp_duplicate_views": 0,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 309.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "scripts/utils.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2663,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1161,
+								1161
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "3b75c7ae",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 979.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1087,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								725,
+								725
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "0afcae38",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "css/jugador.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1956,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "css3",
+							"buffer_scroll_name": "cc6289f5",
+							"history_list_is_closing": true,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/CSS3/CSS3.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "css/tablero.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 719,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								504,
+								504
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "css3",
+							"buffer_scroll_name": "a6d12a66",
+							"history_list_is_closing": true,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/CSS3/CSS3.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 14,
+					"file": "scripts/controladores/Jugadores.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 881,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								106,
+								106
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "f1a4e26d",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "scripts/controladores/JugadorControlador.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1337,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								111,
+								111
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "javascript",
+							"buffer_scroll_name": "b088bd42",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"spell_check": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.5,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 86.0
+	},
+	"output.sftp":
+	{
+		"height": 86.0
+	},
+	"pinned_build_system": "",
+	"project": "pacla.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pacmanvi",
+				"scripts/vistas/PacmanVista.js"
+			],
+			[
+				"jugadorvista",
+				"scripts/vistas/JugadorVista.js"
+			],
+			[
+				"jugador.html",
+				"html/jugador.html"
+			],
+			[
+				"tablerovis",
+				"scripts/vistas/TableroVista.js"
+			],
+			[
+				"utils.",
+				"scripts/utils.js"
+			],
+			[
+				"reserva-in",
+				".tmp/scripts/reservas-info.js"
+			],
+			[
+				"grunt",
+				"Gruntfile.js"
+			],
+			[
+				"index.html",
+				"app/index.html"
+			],
+			[
+				"_navbar",
+				"app/styles/modulos/_navbar.scss"
+			],
+			[
+				"variables",
+				"app/styles/modulos/_variables.scss"
+			],
+			[
+				"disponi",
+				"app/php/disponibilidad.php"
+			],
+			[
+				"reserva.html",
+				"app/reservas.html"
+			],
+			[
+				"utils",
+				"KM0/app/scripts/utils.js"
+			],
+			[
+				"reserva.php",
+				"KM0/app/php/reserva.php"
+			],
+			[
+				"reserva-c",
+				"KM0/app/scripts/reservas-checkout.js"
+			],
+			[
+				"dispo",
+				"KM0/dist/php/disponibilidad.php"
+			],
+			[
+				"sarasa",
+				"sarasa/index.php"
+			],
+			[
+				"main.scss",
+				"KM0/app/styles/main.scss"
+			],
+			[
+				"",
+				"KM0/dist/reservas.html"
+			],
+			[
+				"reservas-check",
+				"KM0/.tmp/scripts/reservas-checkout.js"
+			],
+			[
+				"date",
+				"KM0/app/scripts/datetimepicker.js"
+			],
+			[
+				"reservas",
+				"KM0/dist/scripts/reservas.2772d21d.js"
+			],
+			[
+				"reservas.html",
+				"KM0/dist/reservas.html"
+			],
+			[
+				"index",
+				"KM0/dist/index.html"
+			],
+			[
+				"reservas-info",
+				"KM0/app/scripts/reservas-info.js"
+			],
+			[
+				"util",
+				"KM0/dist/php/utils.php"
+			],
+			[
+				"flotajs",
+				"KM0/app/scripts/flota.js"
+			],
+			[
+				"main.css",
+				"KM0/.tmp/styles/main.css"
+			],
+			[
+				"jsso",
+				"app/styles/modulos/_jssor.scss"
+			],
+			[
+				"report",
+				"JDE/codigo/www.stable/php/report.php"
+			],
+			[
+				"dist/main",
+				"JDE/codigo/www/dist/scripts/main.js"
+			],
+			[
+				"lis",
+				"codigo/www/app/scripts/views/listEncuestaView.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 404.0
+	},
+	"selected_group": 2,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 180.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

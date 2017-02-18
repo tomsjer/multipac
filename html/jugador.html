@@ -6,6 +6,15 @@
     <link rel="stylesheet" href="css/jugador.css">
   </head>
   <body>
+    
+    <div id="selectContainer">
+        <select name="tipoJugador" id="tipoJugador" onchange="selectJugador(event)">
+            <option value="" selected>Tipo jugador</option>
+            <option value="pacman">pacman</option>
+            <option value="fantasma">fantasma</option>
+
+        </select>
+    </div>
 
     <div class="contenedor">
         
@@ -21,10 +30,11 @@
     <script>
 
         var socket = io();
-        var id = 'Jugador-' + Math.ceil(Math.random() * 10);
+        var id ;
+        //var id = 'Jugador-' + Math.ceil(Math.random() * 10);
         var teclas = document.getElementsByClassName('cuad');
 
-        function setHandlers(el){
+        function setHandlersMobile(el){
             
             el.ontouchstart = function(event){
                 socket.emit('touchstart',{
@@ -34,9 +44,9 @@
             };
         }
 
-        if(window.navigator.userAgent.match(/(iPhone|Android)/i)){
+        if(window.navigator.userAgent.match(/(iPhone|Android|IEMobile)/i)){
             
-            [].forEach.call(teclas,setHandlers);
+            [].forEach.call(teclas,setHandlersMobile);
         
         }else{
             window.onkeydown = function(event){
@@ -49,7 +59,16 @@
             };
         }
         
-        socket.emit('nuevo jugador cliente',{id: id, tipo: 'pacman'});
+        var selectContainer = document.getElementById('selectContainer');
+        var select = document.getElementById('tipoJugador');
+        /*select.onchange = function(e){*/
+        function selectJugador(e){
+            
+            id = e.target.value;
+            socket.emit('nuevo jugador cliente',{id: id, tipo: e.target.value});
+            selectContainer.className = "oculto" ;
+        };
+        
 
     </script>
     <script>document.write('<script src="http://' + (location.host || '192.168.2.9').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>

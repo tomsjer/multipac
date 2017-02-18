@@ -7,6 +7,7 @@ app.use('/scripts',express.static(__dirname + '/scripts'));
 app.use('/css',express.static(__dirname + '/css'));
 app.use('/img',express.static(__dirname + '/img'));
 app.use('/html',express.static(__dirname + '/html'));
+app.use('/sounds',express.static(__dirname + '/sounds'));
 
 app.get('/juego', function(req, res){
   res.sendfile('html/juego.html');

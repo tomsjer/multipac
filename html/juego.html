@@ -6,16 +6,23 @@
 
   </head>
   <body>
-    <script language="javascript" type="text/javascript" src="scripts/libs/p5.js"></script>
+    
+    <canvas id="tablero"></canvas>
+    <div id="fps"><span></span>&nbsp;frames<br><span id="val">60</span>&nbsp;fps</div>
+
+
+    <!-- <script language="javascript" type="text/javascript" src="scripts/libs/p5.js"></script> -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="scripts/utils.js"></script>
     
     <script src="scripts/modelos/TableroModelo.js"></script>
     <script src="scripts/modelos/JugadorModelo.js"></script>
     <script src="scripts/modelos/PacmanModelo.js"></script>
+    <script src="scripts/modelos/FantasmaModelo.js"></script>
     
     <script src="scripts/vistas/TableroVista.js"></script>
-    <script src="scripts/vistas/JugadorVista.js"></script>
+    <script src="scripts/vistas/PacmanVista.js"></script>
+    <script src="scripts/vistas/FantasmaVista.js"></script>
     <script src="scripts/vistas/JugadorPuntajeVista.js"></script>
     
     <script src="scripts/controladores/TableroControlador.js"></script>
@@ -27,10 +34,26 @@
     <script src="scripts/pacman.js"></script> -->
     
     <script>
+
+        var DEBUG = true;
         
         var tablero;
         var jugadores;
         var socket = io();
+        var canvas, context;
+        var time;
+        var fpsEl = document.getElementById('fps');
+        var fps = 30;
+        var now;
+        var then = Date.now();
+        var first = then;
+        var frameCount = 0;
+        var interval = 1000/fps;
+        var delta;
+        // Fix up prefixing
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        var audioContext = new AudioContext();
+        
         
         var celda = 24;
         // TODO: cargar desde JSON
@@ -40,7 +63,7 @@
             estadoGrilla: [
                 [10,14,14,14,14,14,14,14,14,14,14,14,14,18,19,14,14,14,14,14,14,14,14,14,14,14,14,11],
                 [16,02,02,02,02,02,02,02,02,02,02,02,02,35,34,02,02,02,02,02,02,02,02,02,02,02,02,15],
-                [16,02,24,32,32,25,25,24,32,32,32,25,02,35,34,02,24,32,32,32,25,02,24,32,32,25,02,15],
+                [16,02,24,32,32,25,02,24,32,32,32,25,02,35,34,02,24,32,32,32,25,02,24,32,32,25,02,15],
                 [16,02,35,01,01,34,02,35,01,01,01,34,02,35,34,02,35,01,01,01,34,02,35,01,01,34,02,15],
                 [16,02,26,33,33,27,02,26,33,33,33,27,02,26,27,02,26,33,33,33,27,02,26,33,33,27,02,15],
                 [16,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,02,15],
@@ -90,26 +113,68 @@
 
         function setup(){
             
-            createCanvas(w,h);
+            /*createCanvas(w,h);
             background(0,0,0);
-            frameRate(24);
-
-            try {
-                tablero = new TableroControlador(config);
-                jugadores = new Jugadores(tablero);
+            frameRate(32);*/
+            canvas = document.getElementById('tablero');
+            canvas.width = w;
+            canvas.height = h;
+            ctx = canvas.getContext('2d');
+            
+            tablero = new TableroControlador(config);
+            jugadores = new Jugadores(tablero);
+            /*try {
+                
+                
             } catch(e) {
                 console.log(e.stack);
-            }
+            }*/
 
         }
 
         function draw(){
 
-            tablero.dibujar();
-            jugadores.actualizar();
-            jugadores.dibujar();
+            requestAnimationFrame(draw);
+            now = Date.now();
+            delta = now - then;
+            
+             if (delta > interval) {
+
+                ctx.fillStyle = "black";
+                ctx.fillRect(0,0,w,h);
+
+                tablero.dibujar();
+                jugadores.actualizar();
+                jugadores.dibujar();
+
+                then = now - (delta % interval);
+                setearTiempo();
+            }
 
         }
+
+        function setearTiempo(){
+            
+            ++frameCount;
+            var time_el = (then - first)/1000;
+            fpsEl.children[0].innerHTML = frameCount;
+            fpsEl.children[2].innerHTML = parseInt(frameCount/time_el);
+
+        }
+
+
+        socket.emit('nuevo jugador cliente',{id:'pacman',tipo:'pacman'});
+        window.onkeydown = function(event){
+            if(event.which === 37 || event.which === 38 || event.which === 39 || event.which === 40){
+                socket.emit('touchstart',{
+                    id:'pacman', 
+                    dir: event.which.toString()
+                });
+            }
+        };
+
+        setup();
+        draw();
 
     </script>
 

@@ -48,3 +48,59 @@ function extend(base, sub) {
     value: sub 
   });
 }
+
+if (!('remove' in Element.prototype)) {
+    Element.prototype.remove = function() {
+        if (this.parentNode) {
+            this.parentNode.removeChild(this);
+        }
+    };
+}
+
+function createVector(x,y){
+    return {
+        x: x,
+        y: y,
+        add:function(v){
+            this.x += v.x;
+            this.y += v.y;
+        }
+    };
+}
+
+function map(val,min,max,minf,maxf){
+    return ((val-min)/(max-min))*(maxf-minf)+minf;
+}
+
+function debug(fn){
+
+    if(!DEBUG) return false;
+    if(typeof fn === 'function'){
+        fn();
+        return false;
+    }
+    console.log(fn);
+}
+
+function playSound(buffer,time) {
+  var source = audioContext.createBufferSource(); // creates a sound source
+  source.buffer = buffer;                    // tell the source which sound to play
+  source.connect(audioContext.destination);       // connect the source to 
+  source.start(time);
+}
+
+function loadSound(url,success) {
+  var request = new XMLHttpRequest();
+  request.open('GET', url, true);
+  request.responseType = 'arraybuffer';
+
+  // Decode asynchronously
+  request.onload = function() {
+    audioContext.decodeAudioData(request.response,success, onError);
+  };
+  request.send();
+}
+
+function onError(error){
+    console.log('loadSound ERROR: ', error);
+}

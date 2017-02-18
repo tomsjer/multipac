@@ -1,7 +1,7 @@
  function JugadorControlador(opciones){
     
     this.modelo = this.tipoJugador(opciones);
-    this.vista = new JugadorVista(this.modelo);
+    this.vista = this.tipoVista();
     this.vistaPuntaje = new JugadorPuntajeVista(this.modelo);
 
 }
@@ -27,10 +27,35 @@ JugadorControlador.prototype = {
         jugador = new PacmanModelo(opciones);
         break;
 
+     case 'fantasma':
+        jugador = new FantasmaModelo(opciones);
+        break;
+
       default:
         throw 'JugadorControlador espera un tipo de jugador en las opciones!';
         break;
     }
     return jugador;
+  },
+  tipoVista:function(){
+
+    var vista;
+
+    switch(this.modelo.tipo){
+        case 'pacman':
+            vista = new PacmanVista(this.modelo);
+            break;
+
+        case 'fantasma':
+            vista = new FantasmaVista(this.modelo);
+            break;
+
+        default:
+            throw 'JugadorControlador espera un tipo de jugador en las opciones!';
+            break;
+    }
+
+    return vista;
   }
+
 };
