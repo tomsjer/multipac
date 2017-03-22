@@ -2,3 +2,4 @@ node_modules/
 *.pem
 *.sublime-workspace
 *.sublime-project
+sftp-config.json
