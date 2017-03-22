@@ -1,13 +1,15 @@
-const express = require('express');
-const https = require('https');
+// const http = require('http');
+const https = require('https'); // https://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server/
 const fs = require('fs');
 const options = {
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem'),
 };
+const express = require('express');
 const app = express();
-const server = https.createServer(options,app);
-const url = require('url');
+const server = https.createServer(options, app);
+// const server = http.createServer(app);
+// const url = require('url');
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server: server });
 const PORT = process.argv[2];
