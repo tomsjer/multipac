@@ -1,2 +1,4 @@
 node_modules/
 *.pem
+*.sublime-workspace
+*.sublime-project
