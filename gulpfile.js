@@ -1,3 +1,9 @@
+/**
+ *
+ * Gulp plugins
+ *
+ */
+
 const gulp = require('gulp');
 const browserify = require('browserify');
 const sourcemaps = require('gulp-sourcemaps');
@@ -7,14 +13,72 @@ const babel = require('babelify');
 const sass = require('gulp-sass');
 const concat = require('gulp-concat');
 const fork = require('child_process').fork;
+const open = require('open');
 
-// const livereload = require('gulp-livereload');
+/**
+ *
+ * Network settings
+ *
+ */
+
+// function getIpAddress(addresses) {
+//   let _a;
+//   for(const i in addresses) {
+//     if(i === 'eth0') {
+//       _a = addresses[i].filter((a)=>{
+//         return (a.family === 'IPv4');
+//       });
+//       return _a;
+//     }
+//   }
+//   return (_a.length) ? _a[0].address : 'localhost';
+// }
+function getIpAddress(interfaces) {
+  let ips = [];
+  Object.keys(interfaces).forEach((ifname)=>{
+    let alias = 0;
+
+    interfaces[ifname].forEach((iface)=>{
+      if (iface.family !== 'IPv4' || iface.internal !== false) {
+        // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+        return;
+      }
+
+      if (alias >= 1) {
+        // this single interface has multiple ipv4 addresses
+        // console.log(ifname + ':' + alias, iface.address);
+      }
+      else {
+        // this interface has only one ipv4 adress
+        // console.log(ifname, iface.address);
+      }
+      alias++;
+      ips.push(iface.address);
+    });
+  });
+  // Keep just the first one.
+  return ips[0];
+}
+const fs = require('fs');
+const os = require('os');
+const interfaces = os.networkInterfaces();
+const IP_ADDRESS = getIpAddress(interfaces);
 const SERVER_PORT = 8080;
+const config = require('./config.json');
+config.ip = IP_ADDRESS;
+config.port = SERVER_PORT;
+fs.writeFileSync('./config.json', JSON.stringify(config));
 
-// server.js
+/**
+ *
+ * Server.js settings
+ *
+ */
+
 let child;
 const reload = function reload() {
-  child.send({ reload: true });
+  //
+  //child.send({ reload: true });
 };
 
 gulp.task('default', ['js', 'concat-styles']);
@@ -26,9 +90,12 @@ gulp.task('serve', ['server'], ()=>{
   // all browsers reload after tasks are complete.
   // gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server']);
   gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server'], reload);
-  gulp.watch(`${__dirname}/app/scripts/*.js`, ['js-watch'], ()=>{
-    reload();
+  gulp.watch(`${__dirname}/config.json`, ['kill-server', 'server', 'js-watch'], ()=>{
+    // open(`${config.protocol}://${IP_ADDRESS}:${SERVER_PORT}`, 'Google Chrome', (err)=>{
+    //   console.log(err);
+    // });
   });
+  gulp.watch(`${__dirname}/app/scripts/*.js`, ['js-watch'], ()=>{ reload();});
   gulp.watch(`${__dirname}/app/styles/*.scss`, ['sass-watch'], reload);
   gulp.watch(`${__dirname}/public/*.html`, reload);
 });

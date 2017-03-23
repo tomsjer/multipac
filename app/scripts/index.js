@@ -1,4 +1,5 @@
-const ws = new WebSocket('wss://10.226.108.71:8080');
+const config = require('../../config.json');
+const ws = new WebSocket(`${(config.protocol === 'http') ? 'ws' : 'wss'}://${config.ip}:${config.port}`);
 
 ws.onopen = ()=>{
   ws.send('something');
