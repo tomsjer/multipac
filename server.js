@@ -9,6 +9,11 @@
     openssl x509 -req -in client.csr -signkey key.pem -out cert.pem
     rm client.csr
 
+  const url = require('url');
+  const location = url.parse(ws.upgradeReq.url, true);
+  You might use location.query.access_token to authenticate or share sessions
+  or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
+
  */
 
 const config = require('./config.json');
@@ -23,46 +28,59 @@ const options = (config.protocol === 'https') ?
 const express = require('express');
 const app = express();
 const server = (config.protocol === 'http') ? httpMod.createServer(app) : httpMod.createServer(options, app);
-// const url = require('url');
+
+/**
+ *
+ * Manage connections
+ *
+ */
 const WebSocket = require('ws');
-const wss = new WebSocket.Server({ server: server });
+const wss = new WebSocket.Server({
+  server: server,
+  clientTracking: true,
+});
+const connections = [];
 
-app.use(express.static(`${__dirname}/public/`));
-
-wss.on('connection', function connection(ws) {
-  // const location = url.parse(ws.upgradeReq.url, true);
-  // You might use location.query.access_token to authenticate or share sessions
-  // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
-
-  ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
+wss.on('connection', (ws)=>{
+  connections.push({
+    id: Date.now() + Math.random(),
+    ws: ws,
   });
-
-  ws.send(JSON.stringify({
-    ip: '10.226.110.127',
-  }));
-
+  ws.on('message', (msg)=>{
+      console.log(msg)
+  });
+  console.log('[server] New ws added to connections',ws);
 });
 
-server.listen(config.port, config.ip, function listening() {
-  console.log('______________________________________________________\n');
-  console.log(`[server] ${config.protocol}://${server.address().address}:${server.address().port}...`);
-  console.log('______________________________________________________\n');
-  process.send({ ready: true });
-});
+/**
+ *
+ * Messages arriving from gulp tasks
+ *
+ */
 
 process.on('message', (msg)=>{
-
+  console.log('[server]',msg);
+  console.log(connections);
   if(msg.reload) {
-    if(wss.clients.lenth) {
-      wss.clients.forEach((ws)=>{
-        ws.send(JSON.stringify({ reload: true }));
+    if(connections.length) {
+      connections.forEach((connection)=>{
+        connection.ws.send(JSON.stringify({ reload: true }));
       });
+    }else{
+      console.log('[server] no connections')
     }
   }
   else{
     console.log('[server] Unhandled msg:', msg);
   }
+});
+
+app.use(express.static(`${__dirname}/public/`));
+server.listen(config.port, config.ip, function listening() {
+  console.log('______________________________________________________\n');
+  console.log(`[server] ${config.protocol}://${server.address().address}:${server.address().port}...`);
+  console.log('______________________________________________________\n');
+  process.send({ ready: true });
 });
 
 // app.get('/juego', function(req, res){

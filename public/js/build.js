@@ -5,12 +5,13 @@ var config = require('../../config.json');
 var ws = new WebSocket((config.protocol === 'http' ? 'ws' : 'wss') + '://' + config.ip + ':' + config.port);
 
 ws.onopen = function () {
-  ws.send('something');
+  ws.send('somethingasds');
 };
 
 ws.onmessage = function (message) {
 
   var msg = JSON.parse(message.data);
+  console.log(msg);
 
   if (msg.reload) {
     window.location.reload(true);

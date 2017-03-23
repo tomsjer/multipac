@@ -20,19 +20,6 @@ const open = require('open');
  * Network settings
  *
  */
-
-// function getIpAddress(addresses) {
-//   let _a;
-//   for(const i in addresses) {
-//     if(i === 'eth0') {
-//       _a = addresses[i].filter((a)=>{
-//         return (a.family === 'IPv4');
-//       });
-//       return _a;
-//     }
-//   }
-//   return (_a.length) ? _a[0].address : 'localhost';
-// }
 function getIpAddress(interfaces) {
   let ips = [];
   Object.keys(interfaces).forEach((ifname)=>{
@@ -77,8 +64,10 @@ fs.writeFileSync('./config.json', JSON.stringify(config));
 
 let child;
 const reload = function reload() {
-  //
-  //child.send({ reload: true });
+  if(child.killed) {
+    return;
+  }
+  child.send({ reload: true });
 };
 
 gulp.task('default', ['js', 'concat-styles']);
@@ -91,9 +80,9 @@ gulp.task('serve', ['server'], ()=>{
   // gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server']);
   gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server'], reload);
   gulp.watch(`${__dirname}/config.json`, ['kill-server', 'server', 'js-watch'], ()=>{
-    // open(`${config.protocol}://${IP_ADDRESS}:${SERVER_PORT}`, 'Google Chrome', (err)=>{
-    //   console.log(err);
-    // });
+    open(`${config.protocol}://${IP_ADDRESS}:${SERVER_PORT}`, 'Google Chrome', (err)=>{
+      console.log(err);
+    });
   });
   gulp.watch(`${__dirname}/app/scripts/*.js`, ['js-watch'], ()=>{ reload();});
   gulp.watch(`${__dirname}/app/styles/*.scss`, ['sass-watch'], reload);
