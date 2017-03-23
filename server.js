@@ -1,14 +1,20 @@
 // const http = require('http');
-const https = require('https'); // https://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server/
+const https = require('https');
 const fs = require('fs');
+/*
+  IMPORTANT: before setting options generate the certificate.
+  openssl genrsa -out client-key.pem 2048
+  openssl req -new -key client-key.pem -out client.csr
+  openssl x509 -req -in client.csr -signkey client-key.pem -out client-cert.pem
+ */
 const options = {
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem'),
 };
 const express = require('express');
 const app = express();
-const server = https.createServer(options, app);
 // const server = http.createServer(app);
+const server = https.createServer(options, app);
 // const url = require('url');
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server: server });
@@ -40,12 +46,12 @@ server.listen(PORT, function listening() {
 
 process.on('message', (msg)=>{
   console.log(typeof msg, msg);
-  
-  if(msg.reload){
+
+  if(msg.reload) {
     _ws.send(JSON.stringify({ reload: true }));
   }
   else{
-    console.log('[server] Unhandled msg:',msg);
+    console.log('[server] Unhandled msg:', msg);
   }
 });
 
