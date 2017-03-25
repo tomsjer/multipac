@@ -1,8 +1,7 @@
 {
-  "name": "multiplayer-pacman-v2",
-  "version": "2.0.0",
-  "description": "Versión multiplayer del juego Pacman",
-  "main": "index.js",
+  "name": "express-ws-gulp-babel",
+  "version": "1.0.0",
+  "description": "Template para desarrollar con Express, WebSockets, Gulp y Babel.",
   "dependencies": {
     "express": "^4.15.2",
     "express-session": "^1.15.1",

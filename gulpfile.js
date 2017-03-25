@@ -73,7 +73,7 @@ const reload = function reload() {
 gulp.task('default', ['js', 'concat-styles']);
 
 // use default task to launch Browsersync and watch JS files
-gulp.task('serve', ['server'], ()=>{
+gulp.task('serve', ['js', 'concat-styles', 'server'], ()=>{
 
   // add browserSync.reload to the tasks array to make
   // all browsers reload after tasks are complete.

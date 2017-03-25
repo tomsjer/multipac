@@ -14,6 +14,10 @@ function startWsConnection() {
     const msg = (message.data.indexOf('{') !== -1) ? JSON.parse(message.data) : message.data;
     console.log(msg);
 
+    const p = document.createElement('p');
+    p.innerHTML = `Soy: ${Math.random()}`;
+    document.body.appendChild(p);
+
     if(msg.reload) {
       window.location.reload(true);
     }
@@ -30,3 +34,16 @@ fetch('/login', { method: 'POST', credentials: 'same-origin' })
 .catch((err)=>{
   console.log(err);
 });
+
+function logout() {
+  fetch('/logout', { method: 'DELETE', credentials: 'same-origin' })
+  .then((response)=> {
+    console.log('Logout...');
+    console.log(response);
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
+
+setTimeout(logout, 5000);

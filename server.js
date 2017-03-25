@@ -54,7 +54,7 @@ app.post('/login', (req, res) => {
 });
 
 app.delete('/logout', (request, response) => {
-  console.log('Destroying session');
+  console.log(`Destroying session... ${request.session.userId}`);
   request.session.destroy();
   response.send({ result: 'OK', message: 'Session destroyed' });
 });
@@ -126,29 +126,3 @@ server.listen(config.port, config.ip, function listening() {
     process.send({ ready: true });
   }
 });
-
-// app.get('/juego', function(req, res){
-//   res.sendfile('html/juego.html');
-// });
-
-// app.get('/jugador', function(req, res){
-//   res.sendfile('html/jugador.html');
-// });
-
-// io.on('connection', function(socket){
-
-//   socket.on('nuevo jugador cliente', function(jugador){
-//     console.log('Nuevo '+jugador.id);
-//     io.emit('nuevo jugador tablero',jugador);
-//   });
-
-//   socket.on('touchstart', function(toque){
-//     console.log(toque.id + ' ' + toque.dir);
-//     io.emit('comando jugador',toque);
-//   });
-
-//   socket.on('comio jugador',function(jugador){
-//     io.emit('actualizar puntaje',jugador);
-//   });
-
-// });
