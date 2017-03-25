@@ -21,7 +21,7 @@ ws.onmessage = function (message) {
 };
 
 },{"../../config.json":2}],2:[function(require,module,exports){
-module.exports={"protocol":"https","ip":"10.226.110.127","port":8080}
+module.exports={"protocol":"https","ip":"192.168.2.14","port":8080}
 },{}]},{},[1])
 
 //# sourceMappingURL=build.js.map

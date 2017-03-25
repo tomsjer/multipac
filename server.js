@@ -39,17 +39,12 @@ const wss = new WebSocket.Server({
   server: server,
   clientTracking: true,
 });
-const connections = [];
 
 wss.on('connection', (ws)=>{
-  connections.push({
-    id: Date.now() + Math.random(),
-    ws: ws,
-  });
   ws.on('message', (msg)=>{
-      console.log(msg)
+    console.log(msg);
   });
-  console.log('[server] New ws added to connections',ws);
+  console.log('[server] New ws added to connections', ws.upgradeReq);
 });
 
 /**
@@ -59,15 +54,15 @@ wss.on('connection', (ws)=>{
  */
 
 process.on('message', (msg)=>{
-  console.log('[server]',msg);
-  console.log(connections);
+  console.log('[server]', msg);
   if(msg.reload) {
-    if(connections.length) {
-      connections.forEach((connection)=>{
-        connection.ws.send(JSON.stringify({ reload: true }));
+    if(wss.clients.size) {
+      wss.clients.forEach((connection)=>{
+        connection.send(JSON.stringify({ reload: true }));
       });
-    }else{
-      console.log('[server] no connections')
+    }
+    else{
+      console.log('[server] no connections');
     }
   }
   else{
@@ -80,7 +75,9 @@ server.listen(config.port, config.ip, function listening() {
   console.log('______________________________________________________\n');
   console.log(`[server] ${config.protocol}://${server.address().address}:${server.address().port}...`);
   console.log('______________________________________________________\n');
-  process.send({ ready: true });
+  if(typeof process.send !== 'undefined') {
+    process.send({ ready: true });
+  }
 });
 
 // app.get('/juego', function(req, res){

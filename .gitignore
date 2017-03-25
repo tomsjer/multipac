@@ -3,3 +3,5 @@ node_modules/
 *.sublime-workspace
 *.sublime-project
 sftp-config.json
+public/css/
+public/js/

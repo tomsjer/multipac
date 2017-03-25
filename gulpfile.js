@@ -92,7 +92,9 @@ gulp.task('serve', ['server'], ()=>{
 // initiate another node process with the server and ws logic.
 gulp.task('server', (done) => {
 
-  child = fork(`${__dirname}/server.js`, [`${SERVER_PORT}`]);
+  child = fork(`${__dirname}/server.js`, [],{
+      execArgv:['--inspect']
+    });
   child.on('message', (msg) => {
     if(msg.ready) {
       done();
