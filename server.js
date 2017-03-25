@@ -25,10 +25,41 @@ const options = (config.protocol === 'https') ?
   cert: fs.readFileSync('cert.pem'),
 } : null;
 
+const session = require('express-session');
+const uuid = require('uuid');
 const express = require('express');
 const app = express();
-const server = (config.protocol === 'http') ? httpMod.createServer(app) : httpMod.createServer(options, app);
+//
+// We need the same instance of the session parser in express and
+// WebSocket server.
+//
+const sessionParser = session({
+  saveUninitialized: false,
+  secret: '$eCuRiTy',
+  resave: false,
+});
 
+app.use(express.static(`${__dirname}/public/`));
+app.use(sessionParser);
+
+app.post('/login', (req, res) => {
+  //
+  // "Log in" user and set userId to session.
+  //
+  const id = uuid.v4();
+
+  console.log(`Updating session for user ${id}`);
+  req.session.userId = id;
+  res.send({ result: 'OK', message: 'Session updated' });
+});
+
+app.delete('/logout', (request, response) => {
+  console.log('Destroying session');
+  request.session.destroy();
+  response.send({ result: 'OK', message: 'Session destroyed' });
+});
+
+const server = (config.protocol === 'http') ? httpMod.createServer(app) : httpMod.createServer(options, app);
 /**
  *
  * Manage connections
@@ -38,13 +69,30 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({
   server: server,
   clientTracking: true,
+  verifyClient: (info, done) => {
+    console.log('Parsing session from request...');
+    sessionParser(info.req, {}, () => {
+      console.log('Session is parsed!');
+
+      //
+      // We can reject the connection by returning false to done(). For example,
+      // reject here if user is unknown.
+      //
+      done(info.req.session.userId);
+    });
+  },
 });
 
 wss.on('connection', (ws)=>{
-  ws.on('message', (msg)=>{
-    console.log(msg);
+  ws.on('message', (message)=>{
+    const userSession = ws.upgradeReq.session;
+    //
+    // Here we can now use session parameters.
+    //
+    console.log(`WS message ${message} from user ${userSession.userId}`);
   });
-  console.log('[server] New ws added to connections', ws.upgradeReq);
+  ws.send('Connected to WebsocketServer');
+  console.log(`[server] New ws added to connections: ${ws.upgradeReq.session.userId}`);
 });
 
 /**
@@ -70,7 +118,6 @@ process.on('message', (msg)=>{
   }
 });
 
-app.use(express.static(`${__dirname}/public/`));
 server.listen(config.port, config.ip, function listening() {
   console.log('______________________________________________________\n');
   console.log(`[server] ${config.protocol}://${server.address().address}:${server.address().port}...`);

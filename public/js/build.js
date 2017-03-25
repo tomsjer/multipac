@@ -2,23 +2,34 @@
 'use strict';
 
 var config = require('../../config.json');
-var ws = new WebSocket((config.protocol === 'http' ? 'ws' : 'wss') + '://' + config.ip + ':' + config.port);
+var wsServer = (config.protocol === 'http' ? 'ws' : 'wss') + '://' + config.ip + ':' + config.port;
 
-ws.onopen = function () {
-  ws.send('somethingasds');
-};
+function startWsConnection() {
 
-ws.onmessage = function (message) {
+  var ws = new WebSocket(wsServer);
 
-  var msg = JSON.parse(message.data);
-  console.log(msg);
+  ws.onopen = function () {
+    ws.send('somethingasds');
+  };
 
-  if (msg.reload) {
-    window.location.reload(true);
-  } else {
-    console.log('Unhandled message: ' + message.data.toString());
-  }
-};
+  ws.onmessage = function (message) {
+
+    var msg = message.data.indexOf('{') !== -1 ? JSON.parse(message.data) : message.data;
+    console.log(msg);
+
+    if (msg.reload) {
+      window.location.reload(true);
+    } else {
+      console.log('Unhandled message: ' + message.data.toString());
+    }
+  };
+}
+
+fetch('/login', { method: 'POST', credentials: 'same-origin' }).then(function () {
+  startWsConnection();
+}).catch(function (err) {
+  console.log(err);
+});
 
 },{"../../config.json":2}],2:[function(require,module,exports){
 module.exports={"protocol":"https","ip":"192.168.2.14","port":8080}

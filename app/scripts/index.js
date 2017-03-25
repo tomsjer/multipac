@@ -1,20 +1,32 @@
 const config = require('../../config.json');
-const ws = new WebSocket(`${(config.protocol === 'http') ? 'ws' : 'wss'}://${config.ip}:${config.port}`);
+const wsServer = `${(config.protocol === 'http') ? 'ws' : 'wss'}://${config.ip}:${config.port}`;
 
-ws.onopen = ()=>{
-  ws.send('somethingasds');
+function startWsConnection() {
 
-};
+  const ws = new WebSocket(wsServer);
 
-ws.onmessage = (message)=>{
+  ws.onopen = ()=>{
+    ws.send('somethingasds');
+  };
 
-  const msg = JSON.parse(message.data);
-  console.log(msg);
+  ws.onmessage = (message)=>{
 
-  if(msg.reload) {
-    window.location.reload(true);
-  }
-  else {
-    console.log(`Unhandled message: ${message.data.toString()}`);
-  }
-};
+    const msg = (message.data.indexOf('{') !== -1) ? JSON.parse(message.data) : message.data;
+    console.log(msg);
+
+    if(msg.reload) {
+      window.location.reload(true);
+    }
+    else {
+      console.log(`Unhandled message: ${message.data.toString()}`);
+    }
+  };
+}
+
+fetch('/login', { method: 'POST', credentials: 'same-origin' })
+.then(()=>{
+  startWsConnection();
+})
+.catch((err)=>{
+  console.log(err);
+});
