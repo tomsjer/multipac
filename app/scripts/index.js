@@ -1,49 +1,51 @@
 const config = require('../../config.json');
 const wsServer = `${(config.protocol === 'http') ? 'ws' : 'wss'}://${config.ip}:${config.port}`;
+const EventEmitter = require('events');
+const Emitter = new EventEmitter();
+const Player = require('./player.js');
+let player;
 
 function startWsConnection() {
 
   const ws = new WebSocket(wsServer);
 
   ws.onopen = ()=>{
-    ws.send('somethingasds');
+    Emitter.emit('ws.open');
+  };
+
+  ws.onerror = ()=>{
+    Emitter.emit('ws.error');
+  };
+
+  ws.onclose = ()=>{
+    Emitter.emit('ws.close');
   };
 
   ws.onmessage = (message)=>{
+    const msg = (message.data.indexOf('{') !== -1) ? JSON.parse(message.data) : {};
+    Emitter.emit(msg.event, msg.args);
+  };
 
-    const msg = (message.data.indexOf('{') !== -1) ? JSON.parse(message.data) : message.data;
-    console.log(msg);
+  Emitter.on('ws.send', (event, args)=>{
+    ws.send(JSON.stringify({
+      event: event,
+      args: args,
+    }));
+  });
 
-    const p = document.createElement('p');
-    p.innerHTML = `Soy: ${Math.random()}`;
-    document.body.appendChild(p);
-
-    if(msg.reload) {
+  Emitter.on('client.reload', (args)=>{
+    if(args.reload) {
       window.location.reload(true);
     }
-    else {
-      console.log(`Unhandled message: ${message.data.toString()}`);
-    }
-  };
+  });
 }
 
 fetch('/login', { method: 'POST', credentials: 'same-origin' })
 .then(()=>{
   startWsConnection();
+  player = new Player(Emitter);
 })
 .catch((err)=>{
   console.log(err);
 });
 
-function logout() {
-  fetch('/logout', { method: 'DELETE', credentials: 'same-origin' })
-  .then((response)=> {
-    console.log('Logout...');
-    console.log(response);
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
-}
-
-setTimeout(logout, 5000);

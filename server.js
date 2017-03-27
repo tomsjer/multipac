@@ -91,7 +91,10 @@ wss.on('connection', (ws)=>{
     //
     console.log(`WS message ${message} from user ${userSession.userId}`);
   });
-  ws.send('Connected to WebsocketServer');
+  ws.send(JSON.stringify({
+    event: 'ws.message',
+    args: ['arg1', 'arg2']
+  }));
   console.log(`[server] New ws added to connections: ${ws.upgradeReq.session.userId}`);
 });
 
@@ -106,7 +109,12 @@ process.on('message', (msg)=>{
   if(msg.reload) {
     if(wss.clients.size) {
       wss.clients.forEach((connection)=>{
-        connection.send(JSON.stringify({ reload: true }));
+        connection.send(JSON.stringify({
+          event: 'client.reload',
+          args: {
+            reload: true,
+          },
+        }));
       });
     }
     else{
