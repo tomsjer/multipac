@@ -16,7 +16,7 @@
     "browserify": "^13.3.0",
     "eslint": "^3.17.1",
     "eslint-plugin-babel": "^4.1.1",
-    "eslint-plugin-react": "^6.10.0",
+    "eslint_d": "^4.2.4",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.1",
