@@ -26,9 +26,9 @@ function startWsConnection() {
     Emitter.emit(msg.event, msg.args);
   };
 
-  Emitter.on('ws.send', (event, args)=>{
+  Emitter.on('ws.send', (args)=>{
     ws.send(JSON.stringify({
-      event: event,
+      event: 'ws.send',
       args: args,
     }));
   });

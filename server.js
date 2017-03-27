@@ -83,6 +83,9 @@ const wss = new WebSocket.Server({
   },
 });
 
+const Game = require('./app/scripts/game.js');
+const game = new Game();
+
 wss.on('connection', (ws)=>{
   ws.on('message', (message)=>{
     const userSession = ws.upgradeReq.session;
@@ -90,11 +93,12 @@ wss.on('connection', (ws)=>{
     // Here we can now use session parameters.
     //
     console.log(`WS message ${message} from user ${userSession.userId}`);
+
+    const msg = (message.indexOf('{') !== -1) ? JSON.parse(message) : {};
+    
+    game.emit(msg.event, msg.args);
   });
-  ws.send(JSON.stringify({
-    event: 'ws.message',
-    args: ['arg1', 'arg2']
-  }));
+  game.emit('player.add', ws);
   console.log(`[server] New ws added to connections: ${ws.upgradeReq.session.userId}`);
 });
 

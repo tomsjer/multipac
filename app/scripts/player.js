@@ -1,3 +1,4 @@
+
 class Player {
   constructor(emitter) {
     this.name = `Jugador ${Date.now()}`;
@@ -13,7 +14,7 @@ class Player {
     console.log(`Player#wsOnOpen: ${this.name}`);
     console.log(this);
     console.log(arguments);
-    
+
     this.emitter.emit('ws.send', this.name);
   }
   wsOnMessage() {
