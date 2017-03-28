@@ -79,7 +79,7 @@ router.on('/', function onStart() {
     this.to('/login');
   }
   else{
-    this.to('/game');
+    this.to('/play');
   }
 })
 
@@ -94,7 +94,7 @@ router.on('/', function onStart() {
   login()
   .then((response) => {
     console.log(response);
-    self.to('/game');
+    self.to('/play');
   })
   .catch((err)=>{
     console.log(err);
@@ -106,7 +106,7 @@ router.on('/', function onStart() {
  * Game
  *
  */
-.on('/game', ()=> {
+.on('/play', ()=> {
 
   startWsConnection()
   .then(listGames)
