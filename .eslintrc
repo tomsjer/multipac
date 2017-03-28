@@ -29,6 +29,9 @@
     "browser": true,
     "node": true
   },
+  "globals":{
+    Promise: true
+  },
   "parser": "babel-eslint",
   "plugins": [
     "babel"

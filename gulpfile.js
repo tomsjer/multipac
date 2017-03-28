@@ -84,17 +84,17 @@ gulp.task('serve', ['js', 'concat-styles', 'server'], ()=>{
       console.log(err);
     });
   });
-  gulp.watch(`${__dirname}/app/scripts/*.js`, ['js-watch'], ()=>{ reload();});
-  gulp.watch(`${__dirname}/app/styles/*.scss`, ['sass-watch'], reload);
+  gulp.watch(`${__dirname}/app/scripts/**/*.js`, ['js-watch'], ()=>{ reload();});
+  gulp.watch(`${__dirname}/app/styles/**/*.scss`, ['sass-watch'], reload);
   gulp.watch(`${__dirname}/public/*.html`, reload);
 });
 
 // initiate another node process with the server and ws logic.
 gulp.task('server', (done) => {
 
-  child = fork(`${__dirname}/server.js`, [],{
-      execArgv:['--inspect']
-    });
+  child = fork(`${__dirname}/server.js`, [], {
+    execArgv: ['--inspect'],
+  });
   child.on('message', (msg) => {
     if(msg.ready) {
       done();

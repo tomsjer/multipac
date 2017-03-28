@@ -1,51 +1,122 @@
+
 const config = require('../../config.json');
 const wsServer = `${(config.protocol === 'http') ? 'ws' : 'wss'}://${config.ip}:${config.port}`;
-const EventEmitter = require('events');
-const Emitter = new EventEmitter();
-const Player = require('./player.js');
-let player;
+const WsConnection = require('./wsconnection');
+const Emitter = new WsConnection({
+  wsServer: wsServer
+});
+const loginOpts = { method: 'POST', credentials: 'same-origin' };
+// const Player = require('./player.js');
+// let player;
 
-function startWsConnection() {
+const wrapper = document.getElementById('wrapper');
+const Router = require('./router.js');
+const router = new Router(wrapper);
 
-  const ws = new WebSocket(wsServer);
-
-  ws.onopen = ()=>{
-    Emitter.emit('ws.open');
-  };
-
-  ws.onerror = ()=>{
-    Emitter.emit('ws.error');
-  };
-
-  ws.onclose = ()=>{
-    Emitter.emit('ws.close');
-  };
-
-  ws.onmessage = (message)=>{
-    const msg = (message.data.indexOf('{') !== -1) ? JSON.parse(message.data) : {};
-    Emitter.emit(msg.event, msg.args);
-  };
-
-  Emitter.on('ws.send', (args)=>{
-    ws.send(JSON.stringify({
-      event: 'ws.send',
-      args: args,
-    }));
+function login() {
+  const promise = new Promise((resolve, reject)=>{
+    fetch('/login', loginOpts)
+    .then((response)=>{
+      return response.json().then(resolve);
+    })
+    .catch((err)=>{
+      console.log(err);
+      reject(err);
+    });
   });
 
-  Emitter.on('client.reload', (args)=>{
-    if(args.reload) {
-      window.location.reload(true);
-    }
-  });
+  return promise;
 }
 
-fetch('/login', { method: 'POST', credentials: 'same-origin' })
-.then(()=>{
-  startWsConnection();
-  player = new Player(Emitter);
+function checkCookie(cookie) {
+  console.log(cookie);
+  return true;
+}
+
+function isAuthenticated() {
+  console.log('');
+  return (document.cookie !== '' && checkCookie(document.cookie));
+}
+
+function startWsConnection() {
+  return Emitter.init();
+}
+function listGames() {
+  return Emitter.send('list.games');
+}
+
+/**
+ *
+ * /index
+ * |
+ * --> localStorage/cookie
+ *                       |__ authenticated --> /play
+ *                       |__ unauthenticated --> /login
+ *
+ * /login
+ *  |__ anonymous --|___ session.isValid()
+ *  |__ Facebook  --|    | session.inGame()
+ *                       |__ true: ---> /play/<gameId>/
+ *                       |__ false: --> /play
+ *
+ * /play
+ *  |__ join --> games.filter( players.length < maxPlayers).
+ *  |            |_ list: select game --> /play/<gameId>/
+ *  |
+ *  |__ create -->  games.push(uuid)
+ *                    |
+ *                    --> /create/<gameId>/
+ */
+
+
+/**
+ *
+ * Root
+ *
+ */
+router.on('/', function onStart() {
+  if(!isAuthenticated()) {
+    this.to('/login');
+  }
+  else{
+    this.to('/game');
+  }
 })
-.catch((err)=>{
-  console.log(err);
+
+/**
+ *
+ * Login
+ *
+ */
+.on('/login', function onLogin() {
+  const self = this;
+
+  login()
+  .then((response) => {
+    console.log(response);
+    self.to('/game');
+  })
+  .catch((err)=>{
+    console.log(err);
+  });
+})
+
+/**
+ *
+ * Game
+ *
+ */
+.on('/game', ()=> {
+
+  startWsConnection()
+  .then(listGames)
+  .then((games)=>{
+    console.log(games);
+    //
+  })
+  .catch((err)=>{
+    console.log(err);
+  });
 });
 
+router.start();

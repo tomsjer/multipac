@@ -41,6 +41,10 @@ const sessionParser = session({
 
 app.use(express.static(`${__dirname}/public/`));
 app.use(sessionParser);
+// TODO: 404's?
+app.get(/\/*/, (req, res)=>{
+  res.sendFile(`${__dirname}/public/index.html`);
+});
 
 app.post('/login', (req, res) => {
   //
@@ -67,6 +71,7 @@ const server = (config.protocol === 'http') ? httpMod.createServer(app) : httpMo
  */
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({
+  perMessageDeflate: false,
   server: server,
   clientTracking: true,
   verifyClient: (info, done) => {
@@ -97,6 +102,12 @@ wss.on('connection', (ws)=>{
     const msg = (message.indexOf('{') !== -1) ? JSON.parse(message) : {};
     
     game.emit(msg.event, msg.args);
+    
+    ws.send(JSON.stringify({
+      event: msg.event,
+      args: [ 1, 2, 3]
+    }));
+
   });
   game.emit('player.add', ws);
   console.log(`[server] New ws added to connections: ${ws.upgradeReq.session.userId}`);

@@ -1,13 +1,13 @@
 const EventEmitter = require('events');
-class Game extends EventEmitter{
-  constructor(){
+class Game extends EventEmitter {
+  constructor() {
     super();
     this.players = [];
     this.setListeners();
   }
-  setListeners(){
+  setListeners() {
     this.on('player.add', (args) =>{
-      console.log(args);
+      // console.log(args);
     });
   }
 }
