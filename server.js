@@ -64,6 +64,7 @@ app.delete('/logout', (request, response) => {
 });
 
 const server = (config.protocol === 'http') ? httpMod.createServer(app) : httpMod.createServer(options, app);
+
 /**
  *
  * Manage connections
@@ -88,8 +89,6 @@ const wss = new WebSocket.Server({
   },
 });
 
-const algo = {};
-
 wss.on('connection', (ws)=>{
   ws.on('message', (message)=>{
     const userSession = ws.upgradeReq.session;
@@ -100,14 +99,27 @@ wss.on('connection', (ws)=>{
 
     const msg = (message.indexOf('{') !== -1) ? JSON.parse(message) : {};
 
-    ws.send(JSON.stringify({
-      event: msg.event,
+    // Broadcast?
+    // ws.send(JSON.stringify({
+    //   event: msg.event,
+    //   args: msg.args,
+    // }));
+    games.emit(msg.event, {
+      ws: ws,
       args: msg.args,
-    }));
-
+    });
   });
   console.log(` New ws added to connections: ${ws.upgradeReq.session.userId}`);
 });
+
+/**
+ *
+ * Game setup
+ *
+ */
+const CONST = require(`${__dirname}/app/scripts/constants.js`);
+const Games = require(`${__dirname}/app/scripts/games.js`);
+const games = new Games();
 
 /**
  *

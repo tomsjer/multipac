@@ -3,7 +3,7 @@ const config = require('../../config.json');
 const wsServer = `${(config.protocol === 'http') ? 'ws' : 'wss'}://${config.ip}:${config.port}`;
 const WsConnection = require('./wsconnection');
 const Emitter = new WsConnection({
-  wsServer: wsServer
+  wsServer: wsServer,
 });
 const loginOpts = { method: 'POST', credentials: 'same-origin' };
 // const Player = require('./player.js');
@@ -106,17 +106,63 @@ router.on('/', function onStart() {
  * Game
  *
  */
-.on('/play', ()=> {
+.on('/play', function onPlay() {
+
+  const self = this;
+  const gamesList = document.querySelector('#games-list');
 
   startWsConnection()
   .then(listGames)
-  .then((games)=>{
-    console.log(games);
-    //
+  .then((response)=>{
+    if(response.games.length) {
+      response.games.forEach((gameUid)=>{
+        const li = document.createElement('li');
+        li.innerHTML = gameUid;
+        li.onclick = ()=>{
+          self.to(`/game/${gameUid}/`);
+        };
+        gamesList.appendChild(li);
+      });
+    }
+    else{
+      self.to('/create');
+    }
   })
   .catch((err)=>{
     console.log(err);
   });
+})
+
+/**
+ *
+ * Game (create)
+ *
+ */
+.on('/create', function onCreate() {
+
+  if(!isAuthenticated()) {
+    login();
+  }
+
+  startWsConnection()
+  .then(()=>{
+
+    const self = this;
+    const input = document.querySelector('#gameUid');
+    const button = document.querySelector('#submit');
+
+    button.onclick = function() {
+      Emitter.send('new.game', {
+        uid: input.value,
+      })
+      .then((response)=>{
+        if(response.result === 'OK'){
+          self.to(`/play/${response.game.uid}`);
+        }
+      });
+    };
+  });
+
 });
 
 router.start();

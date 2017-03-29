@@ -45,13 +45,14 @@ class WsConnection extends EventEmitter {
     return promise;
   }
   send(event, args) {
+    const self = this;
     const promise = new Promise((resolve, reject)=>{
-      this.ws.send(JSON.stringify({
+      self.ws.send(JSON.stringify({
         event: event,
         args: args,
       }));
 
-      this.on(event, (data)=>{
+      self.on(event, (data)=>{
         resolve(data);
       });
     });

@@ -8,26 +8,59 @@ class Router extends EventEmitter {
     this.paths = {};
     this.container = container;
 
-    this.initListeners();
+    this.updateHtml().then(()=>{
+      this.initListeners();
+    });
   }
   initListeners() {
 
-    window.addEventListener('popstate', (e)=> {
-      this.container.innerHTML = '';
-      this.emit(window.location.pathname);
-    });
+    const self = this;
 
-    this.on(window.location.pathname, ()=>{
-      console.log(window.location.pathname);
+    window.addEventListener('popstate', (e)=> {
+      e.preventDefault();
+      this.updateHtml()
+      .then(()=>{
+        this.emit(window.location.pathname);
+      });
     });
   }
   start() {
-    this.emit(window.location.pathname);
+    this.updateHtml().then(()=>{
+      this.emit(window.location.pathname);
+    });
   }
   to(pathname) {
     window.history.pushState({ path: pathname }, null, pathname);
-    this.emit(pathname);
+    this.updateHtml()
+    .then(()=>{
+      this.emit(pathname);
+    });
+  }
+  updateHtml() {
+    const self = this;
+    const promise = new Promise((resolve, reject)=>{
+      fetch(`${window.location.pathname}.html`)
+      .then((response)=>{
+        response.text().then((html)=>{
+          this.container.innerHTML = html;
+          document.querySelectorAll('a').forEach((el)=>{
+            el.onclick = (e)=>{
+              e.preventDefault();
+              self.to(e.target.attributes.href.textContent);
+            };
+          });
+          resolve();
+        });
+      })
+      .catch((err)=>{
+        console.log(err);
+        reject(err);
+      });
+    });
+
+    return promise;
   }
 }
 
 module.exports = Router;
+;
