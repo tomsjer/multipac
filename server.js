@@ -42,8 +42,12 @@ const sessionParser = session({
 app.use(express.static(`${__dirname}/public/`));
 app.use(sessionParser);
 // TODO: 404's?
-app.get(/\/*/, (req, res)=>{
+app.get('*', (req, res)=>{
   res.sendFile(`${__dirname}/public/index.html`);
+});
+app.get('/play/:game', (req, res)=>{
+  res.send(req.params);
+  // res.sendFile(`${__dirname}/public/index.html`);
 });
 
 app.post('/login', (req, res) => {

@@ -133,6 +133,10 @@ router.on('/', function onStart() {
   });
 })
 
+.on('/play/<game>', function playGame(game){
+  console.log(game);
+})
+
 /**
  *
  * Game (create)

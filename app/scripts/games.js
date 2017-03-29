@@ -10,30 +10,31 @@ class Games extends EventEmitter {
   }
   setListeners() {
 
-    this.on('list.games', (obj)=>{
-      obj.ws.send(JSON.stringify({
-        event: 'list.games',
-        args: {
-          games: Object.keys(this.games),
-        },
-      }));
+    this.on('list.games',this.listGames);
+    this.on('new.game', this.newGame);
+
+  }
+  listGames(obj) {
+    obj.ws.send(JSON.stringify({
+      event: 'list.games',
+      args: {
+        games: Object.keys(this.games),
+      },
+    }));
+  }
+  newGame(obj) {
+
+    this.games[obj.args.uid] = new Game({
+      uid: obj.args.uid,
     });
 
-    this.on('new.game', (obj)=>{
-
-      this.games[obj.args.uid] = new Game({
-        uid: obj.args.uid
-      });
-
-      obj.ws.send(JSON.stringify({
-        event: 'new.game',
-        args: {
-          result: 'OK',
-          game: this.games[obj.args.uid],
-        },
-      }));
-    });
-
+    obj.ws.send(JSON.stringify({
+      event: 'new.game',
+      args: {
+        result: 'OK',
+        game: this.games[obj.args.uid],
+      },
+    }));
   }
   length() {
     let c = 0;

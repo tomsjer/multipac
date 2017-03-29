@@ -33,12 +33,19 @@ class Router extends EventEmitter {
     window.history.pushState({ path: pathname }, null, pathname);
     this.updateHtml()
     .then(()=>{
-      this.emit(pathname);
+      if(window.location.pathname.match(/\/play\/.*/)) {
+        this.emit('/play/<game>',pathname.replace('/play/',''));
+      }else{
+        this.emit(pathname);
+      }
     });
   }
   updateHtml() {
     const self = this;
     const promise = new Promise((resolve, reject)=>{
+      if(window.location.pathname.match(/\/.*\/.*/)) {
+        resolve();
+      }
       fetch(`${window.location.pathname}.html`)
       .then((response)=>{
         response.text().then((html)=>{
