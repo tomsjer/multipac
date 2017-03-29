@@ -41,6 +41,7 @@ fs.writeFileSync('./config.json', JSON.stringify(config));
 let server;
 const reload = function reload() {
   if(server.killed) {
+    console.log('return');
     return;
   }
   server.send({ reload: true });
@@ -54,11 +55,11 @@ gulp.task('serve', ['js', 'concat-styles', 'server'], ()=>{
   // add browserSync.reload to the tasks array to make
   // all browsers reload after tasks are complete.
   // gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server']);
-  gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server'], reload);
+  gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server']);
   gulp.watch(`${__dirname}/config.json`, ['kill-server', 'server', 'js-watch']);
-  gulp.watch(`${__dirname}/app/scripts/**/*.js`, ['js-watch'], reload);
-  gulp.watch(`${__dirname}/app/styles/**/*.scss`, ['sass-watch'], reload);
-  gulp.watch(`${__dirname}/public/*.html`, reload);
+  gulp.watch(`${__dirname}/app/scripts/**/*.js`, ['js-watch']);
+  gulp.watch(`${__dirname}/app/styles/**/*.scss`, ['sass-watch']);
+  gulp.watch(`${__dirname}/public/*.html`, ()=>{ reload(); });
 });
 
 // initiate another node process with the server and ws logic.
@@ -127,10 +128,12 @@ gulp.task('js', ()=>{
 // reloading browsers and express server gets reinitiated.
 // gulp.task('js-watch', ['js', 'kill-server', 'server'], (done)=>{
 gulp.task('js-watch', ['js'], (done)=>{
+  reload();
   done();
 });
 
 gulp.task('sass-watch', ['concat-styles'], (done)=>{
+  reload();
   done();
 });
 

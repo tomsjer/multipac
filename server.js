@@ -116,6 +116,7 @@ wss.on('connection', (ws)=>{
  */
 
 process.on('message', (msg)=>{
+  console.log(msg);
   if(wss.clients.size) {
     if(msg.reload) {
       wss.clients.forEach((connection)=>{
