@@ -13,39 +13,15 @@ const babel = require('babelify');
 const sass = require('gulp-sass');
 const concat = require('gulp-concat');
 const fork = require('child_process').fork;
-const open = require('open');
+const exec = require('child_process').exec;
+const ncp = require('copy-paste');
 
 /**
  *
  * Network settings
  *
  */
-function getIpAddress(interfaces) {
-  let ips = [];
-  Object.keys(interfaces).forEach((ifname)=>{
-    let alias = 0;
-
-    interfaces[ifname].forEach((iface)=>{
-      if (iface.family !== 'IPv4' || iface.internal !== false) {
-        // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
-        return;
-      }
-
-      if (alias >= 1) {
-        // this single interface has multiple ipv4 addresses
-        // console.log(ifname + ':' + alias, iface.address);
-      }
-      else {
-        // this interface has only one ipv4 adress
-        // console.log(ifname, iface.address);
-      }
-      alias++;
-      ips.push(iface.address);
-    });
-  });
-  // Keep just the first one.
-  return ips[0];
-}
+const getIpAddress = require('./app/scripts/getIpAddresses.js');
 const fs = require('fs');
 const os = require('os');
 const interfaces = os.networkInterfaces();
@@ -62,12 +38,12 @@ fs.writeFileSync('./config.json', JSON.stringify(config));
  *
  */
 
-let child;
+let server;
 const reload = function reload() {
-  if(child.killed) {
+  if(server.killed) {
     return;
   }
-  child.send({ reload: true });
+  server.send({ reload: true });
 };
 
 gulp.task('default', ['js', 'concat-styles']);
@@ -79,12 +55,8 @@ gulp.task('serve', ['js', 'concat-styles', 'server'], ()=>{
   // all browsers reload after tasks are complete.
   // gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server']);
   gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server'], reload);
-  gulp.watch(`${__dirname}/config.json`, ['kill-server', 'server', 'js-watch'], ()=>{
-    open(`${config.protocol}://${IP_ADDRESS}:${SERVER_PORT}`, 'Google Chrome', (err)=>{
-      console.log(err);
-    });
-  });
-  gulp.watch(`${__dirname}/app/scripts/**/*.js`, ['js-watch'], ()=>{ reload();});
+  gulp.watch(`${__dirname}/config.json`, ['kill-server', 'server', 'js-watch']);
+  gulp.watch(`${__dirname}/app/scripts/**/*.js`, ['js-watch'], reload);
   gulp.watch(`${__dirname}/app/styles/**/*.scss`, ['sass-watch'], reload);
   gulp.watch(`${__dirname}/public/*.html`, reload);
 });
@@ -92,20 +64,47 @@ gulp.task('serve', ['js', 'concat-styles', 'server'], ()=>{
 // initiate another node process with the server and ws logic.
 gulp.task('server', (done) => {
 
-  child = fork(`${__dirname}/server.js`, [], {
+  server = fork(`${__dirname}/server.js`, [], {
+    silent: true,
     execArgv: ['--inspect'],
   });
-  child.on('message', (msg) => {
+  server.on('message', (msg) => {
     if(msg.ready) {
+      const cmd = (os.platform() === 'win32') ? `start chrome ${config.protocol}://${config.ip}:${config.port}` :
+                                                `chrome ${config.protocol}://${config.ip}:${config.port}`;
+      exec(cmd, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`exec error: ${error}`);
+          return;
+        }
+        console.log(error, stdout, stderr);
+      });
+
       done();
     }
+  });
+
+  server.stdout.on('data', (data) => {
+    console.log(`[server] ${data}`);
+  });
+
+  server.stderr.on('data', (data) => {
+    // Couldnt launch it from here, chrome <chrome://*> not allowed
+    // Instead, copy the chrome-devtools url to clipboard.
+    if(data.indexOf('chrome-devtools') !== -1) {
+      ncp.copy(data.toString().substr(data.indexOf('chrome-devtools')));
+    }
+  });
+
+  server.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
   });
 
 });
 
 // kill the server.js node process
 gulp.task('kill-server', () => {
-  return child.kill();
+  return server.kill();
 });
 
 // process JS files and return the stream.
@@ -128,7 +127,6 @@ gulp.task('js', ()=>{
 // reloading browsers and express server gets reinitiated.
 // gulp.task('js-watch', ['js', 'kill-server', 'server'], (done)=>{
 gulp.task('js-watch', ['js'], (done)=>{
-  reload();
   done();
 });
 

@@ -13,6 +13,9 @@ class WsConnection extends EventEmitter {
         window.location.reload(true);
       }
     });
+    this.on('devtools',(args)=> {
+      console.log(args);
+    });
   }
   init() {
 

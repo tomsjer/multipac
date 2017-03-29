@@ -52,13 +52,13 @@ app.post('/login', (req, res) => {
   //
   const id = uuid.v4();
 
-  console.log(`Updating session for user ${id}`);
+  console.log(` Updating session for user ${id}`);
   req.session.userId = id;
   res.send({ result: 'OK', message: 'Session updated' });
 });
 
 app.delete('/logout', (request, response) => {
-  console.log(`Destroying session... ${request.session.userId}`);
+  console.log(` Destroying session... ${request.session.userId}`);
   request.session.destroy();
   response.send({ result: 'OK', message: 'Session destroyed' });
 });
@@ -75,9 +75,9 @@ const wss = new WebSocket.Server({
   server: server,
   clientTracking: true,
   verifyClient: (info, done) => {
-    console.log('Parsing session from request...');
+    console.log(' Parsing session from request...');
     sessionParser(info.req, {}, () => {
-      console.log('Session is parsed!');
+      console.log(' Session is parsed!');
 
       //
       // We can reject the connection by returning false to done(). For example,
@@ -96,7 +96,7 @@ wss.on('connection', (ws)=>{
     //
     // Here we can now use session parameters.
     //
-    console.log(`WS message ${message} from user ${userSession.userId}`);
+    console.log(` WS message ${message} from user ${userSession.userId}`);
 
     const msg = (message.indexOf('{') !== -1) ? JSON.parse(message) : {};
 
@@ -106,7 +106,7 @@ wss.on('connection', (ws)=>{
     }));
 
   });
-  console.log(`[server] New ws added to connections: ${ws.upgradeReq.session.userId}`);
+  console.log(` New ws added to connections: ${ws.upgradeReq.session.userId}`);
 });
 
 /**
@@ -116,9 +116,8 @@ wss.on('connection', (ws)=>{
  */
 
 process.on('message', (msg)=>{
-  console.log('[server]', msg);
-  if(msg.reload) {
-    if(wss.clients.size) {
+  if(wss.clients.size) {
+    if(msg.reload) {
       wss.clients.forEach((connection)=>{
         connection.send(JSON.stringify({
           event: 'client.reload',
@@ -128,19 +127,14 @@ process.on('message', (msg)=>{
         }));
       });
     }
-    else{
-      console.log('[server] no connections');
-    }
   }
   else{
-    console.log('[server] Unhandled msg:', msg);
+    console.log('no connections');
   }
 });
 
 server.listen(config.port, config.ip, function listening() {
-  console.log('______________________________________________________\n');
-  console.log(`[server] ${config.protocol}://${server.address().address}:${server.address().port}...`);
-  console.log('______________________________________________________\n');
+  console.log(`\n______________________________________________________\n\n ${config.protocol}://${server.address().address}:${server.address().port}...\n______________________________________________________\n`);
   if(typeof process.send !== 'undefined') {
     process.send({ ready: true });
   }
