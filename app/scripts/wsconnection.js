@@ -13,9 +13,6 @@ class WsConnection extends EventEmitter {
         window.location.reload(true);
       }
     });
-    this.on('devtools',(args)=> {
-      console.log(args);
-    });
   }
   init() {
 
@@ -36,6 +33,7 @@ class WsConnection extends EventEmitter {
         this.emit('ws.close');
       };
 
+      // If wanted to support Binary?
       this.ws.onmessage = (message)=>{
         const msg = (message.data.indexOf('{') !== -1) ? JSON.parse(message.data) : {};
         this.emit(msg.event, msg.args);
@@ -45,6 +43,12 @@ class WsConnection extends EventEmitter {
     return promise;
   }
   send(event, args) {
+    this.ws.send(JSON.stringify({
+      event: event,
+      args: args,
+    }));
+  }
+  sendPromise(event, args) {
     const self = this;
     const promise = new Promise((resolve, reject)=>{
       self.ws.send(JSON.stringify({

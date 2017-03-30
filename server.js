@@ -45,10 +45,6 @@ app.use(sessionParser);
 app.get('*', (req, res)=>{
   res.sendFile(`${__dirname}/public/index.html`);
 });
-app.get('/play/:game', (req, res)=>{
-  res.send(req.params);
-  // res.sendFile(`${__dirname}/public/index.html`);
-});
 
 app.post('/login', (req, res) => {
   //
@@ -102,28 +98,9 @@ wss.on('connection', (ws)=>{
     console.log(` WS message ${message} from user ${userSession.userId}`);
 
     const msg = (message.indexOf('{') !== -1) ? JSON.parse(message) : {};
-
-    // Broadcast?
-    // ws.send(JSON.stringify({
-    //   event: msg.event,
-    //   args: msg.args,
-    // }));
-    games.emit(msg.event, {
-      ws: ws,
-      args: msg.args,
-    });
   });
   console.log(` New ws added to connections: ${ws.upgradeReq.session.userId}`);
 });
-
-/**
- *
- * Game setup
- *
- */
-const CONST = require(`${__dirname}/app/scripts/constants.js`);
-const Games = require(`${__dirname}/app/scripts/games.js`);
-const games = new Games();
 
 /**
  *
@@ -132,7 +109,6 @@ const games = new Games();
  */
 
 process.on('message', (msg)=>{
-  console.log(msg);
   if(wss.clients.size) {
     if(msg.reload) {
       wss.clients.forEach((connection)=>{
