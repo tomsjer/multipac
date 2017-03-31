@@ -1,5 +1,5 @@
 /*
-  Server logic.
+  Server.js
 
   IMPORTANT:
     When using SSL make sure that you generate the certificate.
@@ -16,6 +16,12 @@
 
  */
 
+/**
+ *
+ * Config
+ *
+ */
+
 const config = require('./config.json');
 const httpMod = (config.protocol === 'http') ? require('http') : require('https');
 const fs = require('fs');
@@ -25,17 +31,20 @@ const options = (config.protocol === 'https') ?
   cert: fs.readFileSync('cert.pem'),
 } : null;
 
+/**
+ *
+ * Express
+ *
+ */
+
+// WARNING: Use a session-store in prod or cookie.
 const session = require('express-session');
 const uuid = require('uuid');
 const express = require('express');
 const app = express();
-//
-// We need the same instance of the session parser in express and
-// WebSocket server.
-//
 const sessionParser = session({
   saveUninitialized: false,
-  secret: '$eCuRiTy',
+  secret: '$eCuRiTy', // TODO: real secret
   resave: false,
 });
 
@@ -65,9 +74,16 @@ app.delete('/logout', (request, response) => {
 
 const server = (config.protocol === 'http') ? httpMod.createServer(app) : httpMod.createServer(options, app);
 
+server.listen(config.port, config.ip, function listening() {
+  console.log(`\n______________________________________________________\n\n ${config.protocol}://${server.address().address}:${server.address().port}...\n______________________________________________________\n`);
+  if(typeof process.send !== 'undefined') {
+    process.send({ ready: true });
+  }
+});
+
 /**
  *
- * Manage connections
+ * Websockets
  *
  */
 const WebSocket = require('ws');
@@ -79,11 +95,10 @@ const wss = new WebSocket.Server({
     console.log(' Parsing session from request...');
     sessionParser(info.req, {}, () => {
       console.log(' Session is parsed!');
-
       //
       // We can reject the connection by returning false to done(). For example,
       // reject here if user is unknown.
-      //
+      // 
       done(info.req.session.userId);
     });
   },
@@ -123,12 +138,5 @@ process.on('message', (msg)=>{
   }
   else{
     console.log('no connections');
-  }
-});
-
-server.listen(config.port, config.ip, function listening() {
-  console.log(`\n______________________________________________________\n\n ${config.protocol}://${server.address().address}:${server.address().port}...\n______________________________________________________\n`);
-  if(typeof process.send !== 'undefined') {
-    process.send({ ready: true });
   }
 });
