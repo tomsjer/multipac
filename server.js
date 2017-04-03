@@ -98,23 +98,45 @@ const wss = new WebSocket.Server({
       //
       // We can reject the connection by returning false to done(). For example,
       // reject here if user is unknown.
-      // 
+      //
       done(info.req.session.userId);
     });
   },
 });
 
-wss.on('connection', (ws)=>{
+wss.on('connection', function onConnection(ws) {
   ws.on('message', (message)=>{
     const userSession = ws.upgradeReq.session;
     //
     // Here we can now use session parameters.
     //
-    console.log(` WS message ${message} from user ${userSession.userId}`);
+    // console.log(` WS message ${message} from user ${userSession.userId}`);
 
     const msg = (message.indexOf('{') !== -1) ? JSON.parse(message) : {};
+    this.emit(msg.event, ws, msg.args);
   });
-  console.log(` New ws added to connections: ${ws.upgradeReq.session.userId}`);
+  // console.log(` New ws added to connections: ${ws.upgradeReq.session.userId}`);
+  this.emit('wss:connection:new', ws);
+  console.log(this.clients.size());
+})
+.on('ws:send', function send(ws, event, args) {
+  if(ws) {
+    // filter clients
+  }
+  else {
+    this.clients.forEach(function wsSend(ws) {
+      if(ws.readyState === 1) {
+        ws.send(JSON.stringify({
+          event: event,
+          args,
+        }));
+      }
+      else{
+        console.log(`Ws not connected: ${ws}`);
+      }
+    });
+  }
+
 });
 
 /**
@@ -139,4 +161,8 @@ process.on('message', (msg)=>{
   else{
     console.log('no connections');
   }
+});
+
+wss.on('new:client', (ws, args)=>{
+  console.log(ws, args);
 });

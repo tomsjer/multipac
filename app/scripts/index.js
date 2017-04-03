@@ -48,8 +48,10 @@ login()
 .then(()=>{
   ws.init()
   .then(()=>{
-    ws.send('new.client',{
+    ws.sendPromise('new:client',{
       uid: Date.now()
+    }).then((response)=>{
+      console.log(response);
     })
   });
 })
