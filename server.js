@@ -115,28 +115,37 @@ wss.on('connection', function onConnection(ws) {
     const msg = (message.indexOf('{') !== -1) ? JSON.parse(message) : {};
     this.emit(msg.event, ws, msg.args);
   });
-  // console.log(` New ws added to connections: ${ws.upgradeReq.session.userId}`);
+  const userId = ws.upgradeReq.session.userId;
+  ws.id = userId;
   this.emit('wss:connection:new', ws);
-  console.log(this.clients.size());
 })
-.on('ws:send', function send(ws, event, args) {
-  if(ws) {
-    // filter clients
+.on('ws:send', function send(wsId, event, args) {
+  if(wsId) {
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
+    // A more efficient way to send only to that ws?
+    for(const ws of this.clients) {
+      if(ws.id === wsId) {
+        ws.send(JSON.stringify({
+          event: event,
+          args,
+        }));
+        break;
+      }
+    }
   }
   else {
     this.clients.forEach(function wsSend(ws) {
-      if(ws.readyState === 1) {
+      if(ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify({
           event: event,
           args,
         }));
       }
       else{
-        console.log(`Ws not connected: ${ws}`);
+        console.log(`Ws not connected...`);
       }
     });
   }
-
 });
 
 /**
@@ -161,8 +170,4 @@ process.on('message', (msg)=>{
   else{
     console.log('no connections');
   }
-});
-
-wss.on('new:client', (ws, args)=>{
-  console.log(ws, args);
 });
