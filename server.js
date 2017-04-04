@@ -171,3 +171,12 @@ process.on('message', (msg)=>{
     console.log('no connections');
   }
 });
+
+/**
+ *
+ * Game setup
+ *
+ */
+
+const Game = require('./app/scripts/game.js');
+const game = new Game(wss);

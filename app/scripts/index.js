@@ -44,14 +44,83 @@ function login() {
  *                    --> /create/<gameId>/
  */
 
+const Game = function(players){
+  
+  var self = this;
+  
+  this.canvas = document.querySelector('canvas');
+  this.canvas.width = window.innerWidth;
+  this.canvas.height = window.innerHeight;
+  this.ctx = this.canvas.getContext('2d');
+  this.players = {};
+
+  this.setup = function(){
+    this.ctx.background = 'black';
+
+  }
+
+  this.update = function(){
+    for(var p in this.players){
+
+    }
+  }
+
+  this.updateState = function(players){
+    this.players = players;
+  }
+
+  this.render = function(){
+    this.ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    this.ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+    for(var p in this.players){
+      this.ctx.fillStyle = 'white';
+      this.ctx.beginPath();
+      this.ctx.arc(this.players[p].location.x,this.players[p].location.y,5,0,Math.PI*180,false);
+      this.ctx.fill();
+    }
+  };
+
+  this.run = function(){
+
+    requestAnimationFrame(self.run);
+    // self.update();
+    self.render();
+  }
+  this.setup();
+  this.run();
+};
+
 login()
 .then(()=>{
   ws.init()
-  .then(()=>{
-    ws.sendPromise('new:client',{
-      uid: Date.now()
-    }).then((response)=>{
-      console.log(response);
-    })
+  .then((response)=>{
+    // response.json().then((state)=>{
+      const game = new Game();
+      window.onkeydown = function(e){
+        let x, y;
+        switch(e.keyCode) {
+        case 37:
+          x = -10;
+          break;
+        case 38:
+          y = -10;
+          break;
+        case 39:
+          x = 10;
+          break;
+        case 40:
+          y = 10;
+          break;
+        }
+
+        ws.send('ws:connection:move',{
+          x: x,
+          y: y,
+        });
+      };
+      ws.on('ws:game:update',function(args){
+        game.updateState(args);
+      });
+    // });
   });
-})
+});
