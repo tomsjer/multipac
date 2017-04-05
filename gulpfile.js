@@ -55,7 +55,7 @@ gulp.task('serve', ['js', 'concat-styles', 'server'], ()=>{
   // add browserSync.reload to the tasks array to make
   // all browsers reload after tasks are complete.
   // gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server']);
-  gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server']);
+  gulp.watch([`${__dirname}/server.js`, `${__dirname}/app/scripts/gameServer.js`], ['kill-server', 'server']);
   gulp.watch(`${__dirname}/config.json`, ['kill-server', 'server', 'js-watch']);
   gulp.watch(`${__dirname}/app/scripts/**/*.js`, ['js-watch']);
   gulp.watch(`${__dirname}/app/styles/**/*.scss`, ['sass-watch']);
@@ -71,15 +71,15 @@ gulp.task('server', (done) => {
   });
   server.on('message', (msg) => {
     if(msg.ready) {
-      // const cmd = (os.platform() === 'win32') ? `start chrome ${config.protocol}://${config.ip}:${config.port}` :
-      //                                           `chrome ${config.protocol}://${config.ip}:${config.port}`;
-      // exec(cmd, (error, stdout, stderr) => {
-      //   if (error) {
-      //     console.error(`exec error: ${error}`);
-      //     return;
-      //   }
-      //   console.log(error, stdout, stderr);
-      // });
+      const cmd = (os.platform() === 'win32') ? `start chrome ${config.protocol}://${config.ip}:${config.port}` :
+                                                `chrome ${config.protocol}://${config.ip}:${config.port}`;
+      exec(cmd, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`exec error: ${error}`);
+          return;
+        }
+        console.log(error, stdout, stderr);
+      });
 
       done();
     }

@@ -13,6 +13,10 @@ class WsConnection extends EventEmitter {
         window.location.reload(true);
       }
     });
+
+    window.addEventListener('beforeunload', ()=>{
+      this.ws.close(1000, 'client closed window');
+    });
   }
   init() {
 

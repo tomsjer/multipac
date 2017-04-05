@@ -75,7 +75,7 @@ const Game = function(players){
     for(var p in this.players){
       this.ctx.fillStyle = 'white';
       this.ctx.beginPath();
-      this.ctx.arc(this.players[p].location.x,this.players[p].location.y,5,0,Math.PI*180,false);
+      this.ctx.arc(this.players[p].location.x,this.players[p].location.y,1,0,Math.PI*180,false);
       this.ctx.fill();
     }
   };
@@ -96,31 +96,21 @@ login()
   .then((response)=>{
     // response.json().then((state)=>{
       const game = new Game();
-      window.onkeydown = function(e){
-        let x, y;
-        switch(e.keyCode) {
-        case 37:
-          x = -10;
-          break;
-        case 38:
-          y = -10;
-          break;
-        case 39:
-          x = 10;
-          break;
-        case 40:
-          y = 10;
-          break;
-        }
+      
+      ws.on('ws:game:update',function(args){
+        game.updateState(args);
+      });
 
+      var delta = 0;
+      setInterval(function(){
+        var x,y;
+        x = Math.cos(delta) * 5;
+        y = Math.sin(delta) * 5;
         ws.send('ws:connection:move',{
           x: x,
           y: y,
         });
-      };
-      ws.on('ws:game:update',function(args){
-        game.updateState(args);
-      });
-    // });
+        delta += 0.1;
+      },50);
   });
 });

@@ -1,27 +1,21 @@
 const Player = require('./player.js');
-class Game {
-  constructor(wss) {
-    this.wss = wss;
-    this.players = {};
 
-    this.setListeners();
-    console.log('[game] init');
+class Game {
+  constructor(config) {
+    
+    this.config = config;
+    this.players = {};
   }
-  setListeners() {
-    this.wss.on('wss:connection:new', this.addPlayer.bind(this));
-    this.wss.on('ws:connection:move', this.movePlayer.bind(this));
-    this.wss.on('ws:connection:move', this.broadCastState.bind(this));
+  addPlayer(id) {
+    this.players[id] = new Player({ id: id });
+    console.log(`[game] addPlayer ${id}`);
   }
-  addPlayer(ws) {
-    this.players[ws.id] = new Player({ ws });
-    console.log(`[game] addPlayer ${this.players[ws.id]}`);
+  removePlayer(id) {
+    delete this.players[id];
+    console.log(`[game] removePlayer ${id}`);
   }
-  movePlayer(ws, args) {
-    this.players[ws.id].move(args);
-    console.log(`[game] movePlayer ${this.players[ws.id]}`);
-  }
-  broadCastState(ws, args) {
-    this.wss.emit('ws:send', false, 'ws:game:update' ,this.players);
+  movePlayer(id, args) {
+    this.players[id].move(args);
   }
 }
 
