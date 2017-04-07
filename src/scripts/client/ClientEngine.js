@@ -29,13 +29,18 @@ class Engine {
 
     /**
      *
-     * Game
+     * Game Engine
      *
      */
     this.gameEngine = options.gameEngine;
     this.controls = options.controls;
     this.controls.on('controls:input', this.sendInput.bind(this));
     this.playerId = null;
+
+    /**
+     * Game Renderer
+     */
+    this.gameRenderer = options.gameRenderer;
   }
 
   /*
@@ -68,6 +73,7 @@ class Engine {
    */
   start() {
     this.gameEngine.start();
+    this.gameRenderer.start();
     this.step();
   }
   step() {
