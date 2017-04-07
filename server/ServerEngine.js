@@ -68,8 +68,8 @@ class Engine {
   clientUpdate(ws, message) {
     console.log(ws, message);
   }
-  processClientInut(ws, message) {
-    this.gameEngine.processInput(message);
+  processClientInut(ws, input) {
+    this.gameEngine.processInput(input);
   }
 
   /*

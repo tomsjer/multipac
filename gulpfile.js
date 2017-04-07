@@ -68,7 +68,7 @@ gulp.task('serve', ['js', 'concat-styles', 'server'], ()=>{
   // add browserSync.reload to the tasks array to make
   // all browsers reload after tasks are complete.
   // gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server']);
-  gulp.watch(`${serverDir}/server.js`, ['kill-server', 'server']);
+  gulp.watch(`${serverDir}/*.js`, ['kill-server', 'server']);
   gulp.watch(`${configFile}`, ['kill-server', 'server', 'js-watch']);
   gulp.watch(`${scriptsDir}/**/**/*.js`, ['js-watch']);
   gulp.watch(`${stylesDir}/**/*.scss`, ['sass-watch']);

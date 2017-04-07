@@ -3,12 +3,13 @@ class GameRenderer {
     console.log(`[gamerendered] ${options}`);
   }
   start() {
-    let loop = function loop() {
-      this.render();
+    const self = this;
+    let loop = (function loop() {
+      self.render();
       requestAnimationFrame(loop);
-    };
+    })();
   }
-  render(){
+  render() {
 
   }
 }

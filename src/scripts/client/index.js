@@ -22,10 +22,10 @@ function login() {
 }
 
 const Engine = require('./ClientEngine.js');
-const GameRenderer = require('./GameRenderer.js');
+const CanvasRenderer = require('./CirclesRenderer.js');
 const Controls = require('./KeyboardControls.js');
-const GameEngine = require('../common/GameEngine.js');
-
+const CirclesEngine = require('../common/CirclesEngine.js');
+const engine = new CirclesEngine({});
 login()
 .then((response)=>{
   ws.init()
@@ -33,8 +33,10 @@ login()
     // Para pacman, PacmanEngine extends Engine?
     const game = new Engine({
       ws: ws,
-      gameEngine: new GameEngine({}),
-      gameRenderer: new GameRenderer(),
+      gameEngine: engine,
+      gameRenderer: new CanvasRenderer({
+        gameEngine: engine,
+      }),
       controls: new Controls(),
     });
   });

@@ -5,6 +5,8 @@ class Player extends Entity {
     this.ws = options.ws;
     this.name = 'Player '+ Math.random();
     console.log(`[player] ${this}`);
+    this.x = 0;
+    this.y = 0;
   }
 }
 

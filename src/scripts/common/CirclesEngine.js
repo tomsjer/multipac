@@ -4,6 +4,14 @@ class CirclesEngine extends GameEngine {
   constructor(options) {
     super(options);
   }
+  processInput(input) {
+    if(this.players[input.playerId]) {
+      if(input.type === 'mousemove') {
+        this.players[input.playerId].x = input.input[0];
+        this.players[input.playerId].y = input.input[1];
+      }
+    }
+  }
 }
 
 module.exports = CirclesEngine;

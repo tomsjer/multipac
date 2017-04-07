@@ -22,7 +22,7 @@ class Engine {
     this.ws.on('ws:close', this.wsOnClose.bind(this));
     this.ws.on('ws:error', this.wsOnError.bind(this));
     this.ws.on('engine:playerJoined', this.playerJoined.bind(this));
-
+    this.ws.on('engine:gameupdate', this.gameUpdate.bind(this));
     this.ws.on('engine:newConnection', function(args) {
       console.log(args);
     });
@@ -35,6 +35,7 @@ class Engine {
     this.gameEngine = options.gameEngine;
     this.controls = options.controls;
     this.controls.on('controls:input', this.sendInput.bind(this));
+
     this.playerId = null;
 
     /**
@@ -65,7 +66,9 @@ class Engine {
     this.playerId = player.id;
     this.start();
   }
-
+  gameUpdate(message){
+    this.gameEngine.players = message.players;
+  }
   /*
    *
    * Engine logic
@@ -74,14 +77,26 @@ class Engine {
   start() {
     this.gameEngine.start();
     this.gameRenderer.start();
+    this.delta = 0;
     this.step();
   }
   step() {
     this.gameEngine.update();
+    // this.sendInput({
+    //   playerId: this.playerId,
+    //   type: 'mousemove',
+    //   input:[
+    //     300 + Math.cos(this.delta * Math.PI/180) * 100,
+    //     300 + Math.sin(this.delta * Math.PI/180) * 100
+    //   ]
+    // });
+    // this.delta++;
     setTimeout(this.step.bind(this), 1000 / this.updateFrequency);
   }
-  sendInput(message) {
-    this.ws.emit('ws:send:input', message);
+  sendInput(input) {
+    input.playerId = this.playerId;
+    this.ws.emit('ws:send:input', input);
+    this.gameEngine.processInput(input);
   }
 }
 
