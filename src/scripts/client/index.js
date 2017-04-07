@@ -1,4 +1,4 @@
-const config = require('../../config.json');
+const config = require('../../../config.json'); 
 const wsServer = `${(config.protocol === 'http') ? 'ws' : 'wss'}://${config.ip}:${config.port}`;
 const WsConnection = require('./wsconnection');
 const ws = new WsConnection({

@@ -22,7 +22,7 @@
  *
  */
 
-const config = require('./config.json');
+const config = require('../config.json');
 const httpMod = (config.protocol === 'http') ? require('http') : require('https');
 const fs = require('fs');
 const options = (config.protocol === 'https') ?
@@ -30,7 +30,6 @@ const options = (config.protocol === 'https') ?
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem'),
 } : null;
-
 /**
  *
  * Express
@@ -48,11 +47,13 @@ const sessionParser = session({
   resave: false,
 });
 
-app.use(express.static(`${__dirname}/public/`));
+app.use(express.static('../public'));
 app.use(sessionParser);
 // TODO: 404's?
 app.get('*', (req, res)=>{
-  res.sendFile(`${__dirname}/public/index.html`);
+  res.sendFile('index.html', {
+    root: 'public/',
+  });
 });
 
 app.post('/login', (req, res) => {

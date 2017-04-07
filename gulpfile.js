@@ -18,10 +18,23 @@ const ncp = require('copy-paste');
 
 /**
  *
+ * Paths
+ *
+ */
+const srcDir = `${__dirname}/src`;
+const scriptsDir = `${srcDir}/scripts`;
+const stylesDir = `${srcDir}/styles`;
+const tmpDir = `${__dirname}/.tmp`;
+const publicDir = `${__dirname}/public`;
+const serverDir = `${__dirname}/server`;
+const configFile = `${__dirname}/config.json`;
+
+/**
+ *
  * Network settings
  *
  */
-const getIpAddress = require('./app/scripts/getIpAddresses.js');
+const getIpAddress = require(`${scriptsDir}/utils/getIpAddresses.js`);
 const fs = require('fs');
 const os = require('os');
 const interfaces = os.networkInterfaces();
@@ -55,31 +68,31 @@ gulp.task('serve', ['js', 'concat-styles', 'server'], ()=>{
   // add browserSync.reload to the tasks array to make
   // all browsers reload after tasks are complete.
   // gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server']);
-  gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server']);
-  gulp.watch(`${__dirname}/config.json`, ['kill-server', 'server', 'js-watch']);
-  gulp.watch(`${__dirname}/app/scripts/**/*.js`, ['js-watch']);
-  gulp.watch(`${__dirname}/app/styles/**/*.scss`, ['sass-watch']);
-  gulp.watch(`${__dirname}/public/*.html`, ()=>{ reload(); });
+  gulp.watch(`${serverDir}/server.js`, ['kill-server', 'server']);
+  gulp.watch(`${configFile}`, ['kill-server', 'server', 'js-watch']);
+  gulp.watch(`${scriptsDir}/**/*.js`, ['js-watch']);
+  gulp.watch(`${stylesDir}/**/*.scss`, ['sass-watch']);
+  gulp.watch(`${publicDir}/*.html`, ()=>{ reload(); });
 });
 
 // initiate another node process with the server and ws logic.
 gulp.task('server', (done) => {
 
-  server = fork(`${__dirname}/server.js`, [], {
+  server = fork(`${serverDir}/server.js`, [], {
     silent: true,
     execArgv: ['--inspect'],
   });
   server.on('message', (msg) => {
     if(msg.ready) {
-      // const cmd = (os.platform() === 'win32') ? `start chrome ${config.protocol}://${config.ip}:${config.port}` :
-      //                                           `chrome ${config.protocol}://${config.ip}:${config.port}`;
-      // exec(cmd, (error, stdout, stderr) => {
-      //   if (error) {
-      //     console.error(`exec error: ${error}`);
-      //     return;
-      //   }
-      //   console.log(error, stdout, stderr);
-      // });
+      const cmd = (os.platform() === 'win32') ? `start chrome ${config.protocol}://${config.ip}:${config.port}` :
+                                                `chrome ${config.protocol}://${config.ip}:${config.port}`;
+      exec(cmd, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`exec error: ${error}`);
+          return;
+        }
+        console.log(error, stdout, stderr);
+      });
 
       done();
     }
@@ -111,7 +124,9 @@ gulp.task('kill-server', () => {
 // process JS files and return the stream.
 // restart express server
 gulp.task('js', ()=>{
-  const bundler = browserify(`${__dirname}/app/scripts/index.js`, { debug: true }).transform(babel);
+  const bundler = browserify(`${scriptsDir}/client/index.js`, {
+    debug: true,
+  }).transform(babel);
   return bundler.bundle()
     .on('error', (err)=>{
       console.error(err);
@@ -121,7 +136,7 @@ gulp.task('js', ()=>{
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(`${__dirname}/public/js/`));
+    .pipe(gulp.dest(`${publicDir}/js/`));
 });
 
 // create a task that ensures the `js` task is complete before
@@ -138,17 +153,17 @@ gulp.task('sass-watch', ['concat-styles'], (done)=>{
 });
 
 gulp.task('concat-styles', ['sass'], ()=>{
-  return gulp.src('./.tmp/**.css')
+  return gulp.src(`${tmpDir}/**.css`)
     .pipe(sourcemaps.init())
     .pipe(concat('main.css'))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(`${__dirname}/public/css/`));
+    .pipe(gulp.dest(`${publicDir}/css/`));
 });
 
 gulp.task('sass', ()=>{
-  return gulp.src(`${__dirname}/app/styles/*.scss`)
+  return gulp.src(`${stylesDir}/*.scss`)
   .pipe(sourcemaps.init())
   .pipe(sass().on('error', sass.logError))
   .pipe(sourcemaps.write())
-  .pipe(gulp.dest(`${__dirname}/.tmp`));
+  .pipe(gulp.dest(`${tmpDir}`));
 });

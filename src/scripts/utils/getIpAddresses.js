@@ -1,5 +1,5 @@
 function getIpAddress(interfaces) {
-  let ips = [];
+  const ips = [];
   Object.keys(interfaces).forEach((ifname)=>{
     let alias = 0;
 
