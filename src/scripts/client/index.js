@@ -1,4 +1,4 @@
-const config = require('../../../config.json'); 
+const config = require('../../../config.json');
 const wsServer = `${(config.protocol === 'http') ? 'ws' : 'wss'}://${config.ip}:${config.port}`;
 const WsConnection = require('./wsconnection');
 const ws = new WsConnection({
@@ -20,38 +20,16 @@ function login() {
 
   return promise;
 }
-
-/**
- *
- * /index
- * |
- * --> localStorage/cookie
- *                       |__ authenticated --> /play
- *                       |__ unauthenticated --> /login
- *
- * /login
- *  |__ anonymous --|___ session.isValid()
- *  |__ Facebook  --|    | session.inGame()
- *                       |__ true: ---> /play/<gameId>/
- *                       |__ false: --> /play
- *
- * /play
- *  |__ join --> games.filter( players.length < maxPlayers).
- *  |            |_ list: select game --> /play/<gameId>/
- *  |
- *  |__ create -->  games.push(uuid)
- *                    |
- *                    --> /create/<gameId>/
- */
+const GameEngine = require('../common/GameEngine.js');
 
 login()
 .then(()=>{
   ws.init()
   .then(()=>{
-    ws.sendPromise('new:client',{
-      uid: Date.now()
-    }).then((response)=>{
-      console.log(response);
-    })
+    const game = new GameEngine({ ws });
+    console.log(game)
+    game.options.ws.on('engine:newConnection',function(args){
+      console.log(args);
+    });
   });
-})
+});

@@ -47,10 +47,10 @@ const sessionParser = session({
   resave: false,
 });
 
-app.use(express.static('../public'));
+app.use(express.static('public/'));
 app.use(sessionParser);
 // TODO: 404's?
-app.get('*', (req, res)=>{
+app.get('*.html', (req, res)=>{
   res.sendFile('index.html', {
     root: 'public/',
   });
@@ -177,4 +177,11 @@ process.on('message', (msg)=>{
   else{
     console.log('no connections');
   }
+});
+
+const Engine = require('./Engine.js');
+const GameEngine = require('../src/scripts/common/GameEngine.js');
+const pepe = new Engine({
+  wss: wss,
+  gameEngine: new GameEngine(),
 });

@@ -37,6 +37,7 @@ class WsConnection extends EventEmitter {
       this.ws.onmessage = (message)=>{
         const msg = (message.data.indexOf('{') !== -1) ? JSON.parse(message.data) : {};
         this.emit(msg.event, msg.args);
+        // console.log('[ws]', msg);
       };
     });
 
