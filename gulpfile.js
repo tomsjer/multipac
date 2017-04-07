@@ -70,7 +70,7 @@ gulp.task('serve', ['js', 'concat-styles', 'server'], ()=>{
   // gulp.watch(`${__dirname}/server.js`, ['kill-server', 'server']);
   gulp.watch(`${serverDir}/server.js`, ['kill-server', 'server']);
   gulp.watch(`${configFile}`, ['kill-server', 'server', 'js-watch']);
-  gulp.watch(`${scriptsDir}/**/*.js`, ['js-watch']);
+  gulp.watch(`${scriptsDir}/**/**/*.js`, ['js-watch']);
   gulp.watch(`${stylesDir}/**/*.scss`, ['sass-watch']);
   gulp.watch(`${publicDir}/*.html`, ()=>{ reload(); });
 });

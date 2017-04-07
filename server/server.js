@@ -166,7 +166,7 @@ process.on('message', (msg)=>{
     if(msg.reload) {
       wss.clients.forEach((connection)=>{
         connection.send(JSON.stringify({
-          event: 'client.reload',
+          event: 'client:reload',
           args: {
             reload: true,
           },
@@ -179,9 +179,9 @@ process.on('message', (msg)=>{
   }
 });
 
-const Engine = require('./Engine.js');
+const ServerEngine = require('./ServerEngine.js');
 const GameEngine = require('../src/scripts/common/GameEngine.js');
-const pepe = new Engine({
+const game = new ServerEngine({
   wss: wss,
-  gameEngine: new GameEngine(),
+  gameEngine: new GameEngine({}),
 });

@@ -22,6 +22,7 @@ class Engine {
     this.wss.on('wss:connection:close', this.CloseConnection.bind(this));
     this.wss.on('wss:connection:error', this.connectionError.bind(this));
     this.wss.on('wss:client:update', this.clientUpdate.bind(this));
+    this.wss.on('wss:client:input', this.processClientInut.bind(this));
 
     /**
      *
@@ -48,6 +49,7 @@ class Engine {
     console.log(`[engine] newConnection: ${ws.id}`);
     this.connectedPlayers[ws.id] = ws.id;
     this.gameEngine.addPlayer({ wsId: ws.id });
+    this.wss.emit('ws:send', ws.id, 'engine:playerJoined', { id: ws.id });
     this.wss.emit('ws:send', null, 'engine:newConnection', this.gameEngine.players);
   }
   CloseConnection(ws, code, message) {
@@ -65,6 +67,9 @@ class Engine {
   }
   clientUpdate(ws, message) {
     console.log(ws, message);
+  }
+  processClientInut(ws, message) {
+    this.gameEngine.processInput(message);
   }
 
   /*

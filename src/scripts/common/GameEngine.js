@@ -4,8 +4,8 @@ const Player = require('./Player.js');
 class GameEngine extends EventEmitter {
   constructor(options) {
     super(null);
-    this.options = options;
-    this.players = {};
+    this.options = options || {};
+    this.players = options.players || {};
     this.status = { players: this.players };
     return this;
   }
@@ -13,6 +13,9 @@ class GameEngine extends EventEmitter {
 
   }
   update() {
+
+  }
+  stop() {
 
   }
   addPlayer(opts) {
@@ -25,6 +28,12 @@ class GameEngine extends EventEmitter {
   }
   getStatus() {
     return this.status;
+  }
+  getPlayers() {
+    return this.players;
+  }
+  processInput(message) {
+    console.log(`[gameengine] ${message.input}`)
   }
 }
 

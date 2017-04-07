@@ -8,10 +8,14 @@ class WsConnection extends EventEmitter {
     return this;
   }
   setListeners() {
-    this.on('client.reload', (args)=>{
+    this.on('client:reload', (args)=>{
       if(args.reload) {
         window.location.reload(true);
       }
+    });
+    this.on('ws:send:input', function(message){
+      console.log(message)
+      this.send('wss:client:input',message);
     });
   }
   init() {
@@ -20,17 +24,17 @@ class WsConnection extends EventEmitter {
     const promise = new Promise((resolve, reject)=>{
 
       this.ws.onopen = (response)=>{
-        this.emit('ws.open');
+        this.emit('ws:open', response);
         resolve(response);
       };
 
       this.ws.onerror = (err)=>{
-        this.emit('ws.error');
+        this.emit('ws:error', err);
         reject(err);
       };
 
-      this.ws.onclose = ()=>{
-        this.emit('ws.close');
+      this.ws.onclose = (message)=>{
+        this.emit('ws:close', message);
       };
 
       // If wanted to support Binary?

@@ -20,16 +20,22 @@ function login() {
 
   return promise;
 }
+
+const Engine = require('./ClientEngine.js');
+const GameRenderer = require('./GameRenderer.js');
+const Controls = require('./KeyboardControls.js');
 const GameEngine = require('../common/GameEngine.js');
 
 login()
-.then(()=>{
+.then((response)=>{
   ws.init()
-  .then(()=>{
-    const game = new GameEngine({ ws });
-    console.log(game)
-    game.options.ws.on('engine:newConnection',function(args){
-      console.log(args);
+  .then((r)=>{
+    // Para pacman, PacmanEngine extends Engine?
+    const game = new Engine({
+      ws: ws,
+      gameEngine: new GameEngine({}),
+      gameRenderer: new GameRenderer(),
+      controls: new Controls(),
     });
   });
 });
