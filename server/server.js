@@ -115,6 +115,12 @@ wss.on('connection', function onConnection(ws) {
 
     const msg = (message.indexOf('{') !== -1) ? JSON.parse(message) : {};
     this.emit(msg.event, ws, msg.args);
+  })
+  .on('close', (message)=> {
+    wss.emit('wss:connection:close', ws, message);
+  })
+  .on('error', (err)=> {
+    wss.emit('wss:connection:error', ws, err);
   });
   const userId = ws.upgradeReq.session.userId;
   ws.id = userId;
@@ -143,7 +149,7 @@ wss.on('connection', function onConnection(ws) {
         }));
       }
       else{
-        console.log(`Ws not connected...`);
+        console.log('Ws not connected...');
       }
     });
   }
