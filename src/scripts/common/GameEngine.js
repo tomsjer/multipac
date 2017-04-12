@@ -1,3 +1,7 @@
+const Logger = require('../utils/logger.js');
+const logger = new Logger({
+  label: 'gameEngine',
+});
 const EventEmitter = require('events');
 const Player = require('./Player.js');
 
@@ -20,11 +24,11 @@ class GameEngine extends EventEmitter {
   }
   addPlayer(opts) {
     this.players[opts.wsId] = new Player(opts);
-    console.log(`[gameEngine] addPlayer ${opts.wsId}`);
+    logger.log(`addPlayer ${opts.wsId}`);
   }
   removePlayer(ws) {
     delete this.players[ws.id];
-    console.log(`[gameEngine] deletePlayer ${ws.id}`);
+    logger.log(`deletePlayer ${ws.id}`);
   }
   getStatus() {
     return this.status;
@@ -33,7 +37,7 @@ class GameEngine extends EventEmitter {
     return this.players;
   }
   processInput(input) {
-    // console.log(`[gameengine] ${input.input}`);
+    // logger.log(`[gameengine] ${input.input}`);
   }
 }
 

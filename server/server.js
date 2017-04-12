@@ -30,6 +30,12 @@ const options = (config.protocol === 'https') ?
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem'),
 } : null;
+
+const Logger = require('../src/scripts/utils/logger.js');
+const logger = new Logger({
+  label: 'server'
+});
+
 /**
  *
  * Express
@@ -62,13 +68,13 @@ app.post('/login', (req, res) => {
   //
   const id = uuid.v4();
 
-  console.log(` Updating session for user ${id}`);
   req.session.userId = id;
   res.send({ result: 'OK', message: 'Session updated' });
+  logger.info('Updated user session.', req.session.userId);
 });
 
 app.delete('/logout', (request, response) => {
-  console.log(` Destroying session... ${request.session.userId}`);
+  logger.log(` Destroying user session. ${request.session.userId}`);
   request.session.destroy();
   response.send({ result: 'OK', message: 'Session destroyed' });
 });
@@ -76,7 +82,7 @@ app.delete('/logout', (request, response) => {
 const server = (config.protocol === 'http') ? httpMod.createServer(app) : httpMod.createServer(options, app);
 
 server.listen(config.port, config.ip, function listening() {
-  console.log(`\n______________________________________________________\n\n ${config.protocol}://${server.address().address}:${server.address().port}...\n______________________________________________________\n`);
+  logger.info(`\n______________________________________________________\n\n ${config.protocol}://${server.address().address}:${server.address().port}...\n______________________________________________________\n`);
   if(typeof process.send !== 'undefined') {
     process.send({ ready: true });
   }
@@ -94,9 +100,9 @@ const wsconnection = new WsConnection({
     server: server,
     clientTracking: true,
     verifyClient: (info, done) => {
-      console.log(' Parsing session from request...');
+      logger.info('Parsing session from request...');
       sessionParser(info.req, {}, () => {
-        console.log(' Session is parsed!');
+        logger.info(`Session is parsed: ${info.req.session.userId}`);
         //
         // We can reject the connection by returning false to done(). For example,
         // reject here if user is unknown.
@@ -127,7 +133,7 @@ process.on('message', (msg)=>{
     }
   }
   else{
-    console.log('no connections');
+    logger.log('info', 'no connections');
   }
 });
 

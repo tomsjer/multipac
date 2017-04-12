@@ -1,6 +1,10 @@
+const Logger = require('../utils/logger.js');
+const logger = new Logger({
+  label: 'entity'
+});
 class Entity {
   constructor(options) {
-    console.log(`[entity] ${options}`);
+    logger.log(` New entity...`);
   }
 }
 

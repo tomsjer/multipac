@@ -1,4 +1,8 @@
 // http://docs.lance.gg/develop/tutorial-overview_architecture.html
+const Logger = require('../utils/logger.js');
+const logger = new Logger({
+  label: 'clientEngine',
+});
 class Engine {
   constructor(options) {
 
@@ -24,7 +28,7 @@ class Engine {
     this.ws.on('engine:playerJoined', this.playerJoined.bind(this));
     this.ws.on('engine:gameupdate', this.gameUpdate.bind(this));
     this.ws.on('engine:newConnection', function(args) {
-      console.log(args);
+      console.log(logger.format(args));
     });
 
     /**
@@ -50,23 +54,23 @@ class Engine {
    *
    */
   wsOnOpen(response) {
-    console.log(`[engine] ${response}`);
+    console.log(logger.format('wsOnOpen', response));
     this.gameEngine.start();
   }
   wsOnClose(message) {
-    console.log(`[engine] ${message}`);
+    console.log(logger.format('wsOnClose', message));
     this.gameEngine.stop();
   }
   wsOnError(error) {
-    console.log(`[engine] ${error}`);
+    console.log(logger.format('wsOnError', error));
     this.gameEngine.stop();
   }
   playerJoined(player) {
-    console.log(player);
+    console.log(logger.format('playerJoined', player));
     this.playerId = player.id;
     this.start();
   }
-  gameUpdate(message){
+  gameUpdate(message) {
     this.gameEngine.players = message.players;
   }
   /*

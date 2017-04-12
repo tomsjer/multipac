@@ -1,0 +1,14 @@
+{"level":"info","message":"New post to login...","timestamp":"2017-04-12T16:34:20.187Z"}
+{"level":"info","message":"New post to login...","timestamp":"2017-04-12T16:34:44.824Z"}
+{"cookie":{"path":"/","_expires":null,"originalMaxAge":null,"httpOnly":true},"userId":"f190c553-1ee0-4220-9874-b305f6769d16","level":"info","message":"New post to login...","timestamp":"2017-04-12T16:39:25.422Z"}
+{"level":"info","message":"\n______________________________________________________\n\n http://10.226.110.48:8080...\n______________________________________________________\n","timestamp":"2017-04-12T16:44:28.005Z"}
+{"level":"info","message":"\n______________________________________________________\n\n http://10.226.110.48:8080...\n______________________________________________________\n","timestamp":"2017-04-12T16:45:47.628Z"}
+{"cookie":{"path":"/","_expires":null,"originalMaxAge":null,"httpOnly":true},"userId":"24da11ed-13f1-43f6-87de-dbe89aea9a36","level":"info","message":"Updated user session.","timestamp":"2017-04-12T16:45:58.443Z"}
+{"level":"info","message":" Parsing session from request","timestamp":"2017-04-12T16:45:58.539Z"}
+{"cookie":{"path":"/","_expires":null,"originalMaxAge":null,"httpOnly":true},"userId":"24da11ed-13f1-43f6-87de-dbe89aea9a36","level":"info","message":"Session is parsed!","timestamp":"2017-04-12T16:45:58.540Z"}
+{"cookie":{"path":"/","_expires":null,"originalMaxAge":null,"httpOnly":true},"userId":"d4f1d34d-8e1b-4c3c-8d69-93d0b64bda7b","level":"info","message":"Updated user session.","timestamp":"2017-04-12T17:39:03.401Z"}
+{"level":"info","message":" Parsing session from request","timestamp":"2017-04-12T17:39:03.507Z"}
+{"cookie":{"path":"/","_expires":null,"originalMaxAge":null,"httpOnly":true},"userId":"d4f1d34d-8e1b-4c3c-8d69-93d0b64bda7b","level":"info","message":"Session is parsed!","timestamp":"2017-04-12T17:39:03.508Z"}
+{"cookie":{"path":"/","_expires":null,"originalMaxAge":null,"httpOnly":true},"userId":"777f257c-e587-4b5d-a117-043f3af09e37","level":"info","message":"Updated user session.","timestamp":"2017-04-12T17:39:12.983Z"}
+{"level":"info","message":" Parsing session from request","timestamp":"2017-04-12T17:39:13.040Z"}
+{"cookie":{"path":"/","_expires":null,"originalMaxAge":null,"httpOnly":true},"userId":"777f257c-e587-4b5d-a117-043f3af09e37","level":"info","message":"Session is parsed!","timestamp":"2017-04-12T17:39:13.047Z"}

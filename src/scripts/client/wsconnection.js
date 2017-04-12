@@ -1,4 +1,10 @@
 const EventEmitter = require('events');
+const WSState = {
+  CONNECTING: 0,
+  OPEN: 1,
+  CLOSING: 2,
+  CLOSED: 3,
+};
 
 class WsConnection extends EventEmitter {
   constructor(opts) {
@@ -13,8 +19,7 @@ class WsConnection extends EventEmitter {
         window.location.reload(true);
       }
     });
-    this.on('ws:send:input', function(message){
-      console.log(message)
+    this.on('ws:send:input', function(message) {
       this.send('wss:client:input',message);
     });
   }
@@ -48,10 +53,12 @@ class WsConnection extends EventEmitter {
     return promise;
   }
   send(event, args) {
-    this.ws.send(JSON.stringify({
-      event: event,
-      args: args,
-    }));
+    if(this.ws.readyState === WSState.OPEN) {
+      this.ws.send(JSON.stringify({
+        event: event,
+        args: args,
+      }));
+    }
   }
   sendPromise(event, args) {
     const self = this;

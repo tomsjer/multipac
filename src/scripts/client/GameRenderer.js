@@ -1,6 +1,11 @@
+const Logger = require('../utils/logger.js');
+const logger = new Logger({
+  label: 'gameRenderer',
+});
+
 class GameRenderer {
   constructor(options) {
-    console.log(`[gamerendered] ${options}`);
+    console.log(logger.format('initializing...', options));
   }
   start() {
     const self = this;

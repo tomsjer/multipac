@@ -1,4 +1,9 @@
 // http://docs.lance.gg/develop/tutorial-overview_architecture.html
+const Logger = require('../src/scripts/utils/logger.js');
+const logger = new Logger({
+  label: 'engine',
+});
+
 class Engine {
   constructor(options) {
 
@@ -46,19 +51,19 @@ class Engine {
    *
    */
   newConnection(ws) {
-    console.log(`[engine] newConnection: ${ws.id}`);
+    logger.log(`[engine] newConnection: ${ws.id}`);
     this.connectedPlayers[ws.id] = ws.id;
     this.gameEngine.addPlayer({ wsId: ws.id });
     this.wss.emit('ws:send', ws.id, 'engine:playerJoined', { id: ws.id });
     this.wss.emit('ws:send', null, 'engine:newConnection', this.gameEngine.players);
   }
   CloseConnection(ws, code, message) {
-    console.log(`[engine] closeConnection: ${ws.id}\n code: ${code}\n message: ${message}`);
+    logger.log(`[engine] closeConnection: ${ws.id}\n code: ${code}\n message: ${message}`);
     delete this.connectedPlayers[ws.id];
     this.gameEngine.removePlayer(ws);
   }
   connectionError(ws, error) {
-    console.log(`[engine] connectionError: ${ws.id}\n error: ${error}`);
+    logger.log(`[engine] connectionError: ${ws.id}\n error: ${error}`);
     delete this.connectedPlayers[ws.id];
     this.gameEngine.removePlayer(ws);
   }
@@ -66,7 +71,7 @@ class Engine {
     this.wss.emit('ws:send', false, 'engine:gameupdate', this.gameEngine.status);
   }
   clientUpdate(ws, message) {
-    console.log(ws, message);
+    logger.log(ws, message);
   }
   processClientInut(ws, input) {
     this.gameEngine.processInput(input);

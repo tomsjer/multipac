@@ -99,7 +99,7 @@ gulp.task('server', (done) => {
   });
 
   server.stdout.on('data', (data) => {
-    console.log(`[server] ${data}`);
+    process.stdout.write(data);
   });
 
   server.stderr.on('data', (data) => {
