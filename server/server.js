@@ -132,7 +132,7 @@ process.on('message', (msg)=>{
 });
 
 const ServerEngine = require('./ServerEngine.js');
-const GameEngine = require('../src/scripts/common/CirclesEngine.js');
+const GameEngine = require('../src/scripts/common/GameEngine.js');
 const game = new ServerEngine({
   wss: wsconnection.wss,
   gameEngine: new GameEngine({}),

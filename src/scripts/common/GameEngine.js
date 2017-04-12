@@ -33,7 +33,7 @@ class GameEngine extends EventEmitter {
     return this.players;
   }
   processInput(input) {
-    console.log(`[gameengine] ${input.input}`);
+    // console.log(`[gameengine] ${input.input}`);
   }
 }
 

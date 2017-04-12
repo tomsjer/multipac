@@ -21,21 +21,20 @@ function login() {
   return promise;
 }
 
-const Engine = require('./ClientEngine.js');
-const CanvasRenderer = require('./CirclesRenderer.js');
+const ClientEngine = require('./ClientEngine.js');
+const GameEngine = require('../common/GameEngine.js');
+const GameRenderer = require('./GameRenderer.js');
 const Controls = require('./KeyboardControls.js');
-const CirclesEngine = require('../common/CirclesEngine.js');
-const engine = new CirclesEngine({});
+const gameEngine = new GameEngine({});
 login()
 .then((response)=>{
   ws.init()
   .then((r)=>{
-    // Para pacman, PacmanEngine extends Engine?
-    const game = new Engine({
+    const game = new ClientEngine({
       ws: ws,
-      gameEngine: engine,
-      gameRenderer: new CanvasRenderer({
-        gameEngine: engine,
+      gameEngine: gameEngine,
+      gameRenderer: new GameRenderer({
+        gameEngine: gameEngine,
       }),
       controls: new Controls(),
     });
