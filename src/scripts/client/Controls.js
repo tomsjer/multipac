@@ -7,7 +7,7 @@ const logger = new Logger({
 class Controls extends EventEmitter {
   constructor(options) {
     super(null);
-    console.log(logger.format('initializing...', options));
+    logger.log('initializing...', options);
   }
 }
 

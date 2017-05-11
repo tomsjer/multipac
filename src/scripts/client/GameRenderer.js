@@ -5,7 +5,8 @@ const logger = new Logger({
 
 class GameRenderer {
   constructor(options) {
-    console.log(logger.format('initializing...', options));
+    logger.log('initializing...', options);
+    this.gameEngine = options.gameEngine;
   }
   start() {
     const self = this;
@@ -15,7 +16,9 @@ class GameRenderer {
     })();
   }
   render() {
-
+    for(const i in this.gameEngine.players) {
+      // Draw
+    }
   }
 }
 

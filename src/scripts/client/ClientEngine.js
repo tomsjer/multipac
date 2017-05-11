@@ -28,7 +28,7 @@ class Engine {
     this.ws.on('engine:playerJoined', this.playerJoined.bind(this));
     this.ws.on('engine:gameupdate', this.gameUpdate.bind(this));
     this.ws.on('engine:newConnection', function(args) {
-      console.log(logger.format(args));
+      logger.log(args);
     });
 
     /**
@@ -54,19 +54,19 @@ class Engine {
    *
    */
   wsOnOpen(response) {
-    console.log(logger.format('wsOnOpen', response));
+    logger.log('wsOnOpen', response);
     this.gameEngine.start();
   }
   wsOnClose(message) {
-    console.log(logger.format('wsOnClose', message));
+    logger.warn('wsOnClose', message);
     this.gameEngine.stop();
   }
   wsOnError(error) {
-    console.log(logger.format('wsOnError', error));
+    logger.error('wsOnError', error);
     this.gameEngine.stop();
   }
   playerJoined(player) {
-    console.log(logger.format('playerJoined', player));
+    logger.log('playerJoined', player);
     this.playerId = player.id;
     this.start();
   }
