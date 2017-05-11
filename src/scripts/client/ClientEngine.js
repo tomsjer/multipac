@@ -28,7 +28,7 @@ class Engine {
     this.ws.on('engine:playerJoined', this.playerJoined.bind(this));
     this.ws.on('engine:gameupdate', this.gameUpdate.bind(this));
     this.ws.on('engine:newConnection', function(args) {
-      logger.log(args);
+      logger.log('new connection', args);
     });
 
     /**
