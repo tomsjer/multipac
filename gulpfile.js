@@ -78,14 +78,16 @@ gulp.task('serve', ['js', 'concat-styles', 'server'], ()=>{
 // initiate another node process with the server and ws logic.
 gulp.task('server', (done) => {
 
+  // launch server as a forked process (child_process)
   server = fork(`${serverDir}/server.js`, [], {
     silent: true,
     execArgv: ['--inspect'],
   });
+  // server.js will send message when ready
   server.on('message', (msg) => {
     if(msg.ready) {
       const cmd = (os.platform() === 'win32') ? `start chrome ${config.protocol}://${config.ip}:${config.port}` :
-                                                `chrome ${config.protocol}://${config.ip}:${config.port}`;
+                                                `chrome ${config.protocol}://${config.ip}:${config.port}`; //TODO: add browser bin to config
       exec(cmd, (error, stdout, stderr) => {
         if (error) {
           console.error(`exec error: ${error}`);
@@ -98,10 +100,15 @@ gulp.task('server', (done) => {
     }
   });
 
+  // log server output here for clarity
   server.stdout.on('data', (data) => {
+    console.log('[ server.js ]');
     process.stdout.write(data);
   });
 
+  // dirty hack to copy ugly node URL to clipboard.
+  // UPDATE: https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27
+  // (chrome://inspect)
   server.stderr.on('data', (data) => {
     // Couldnt launch it from here, chrome <chrome://*> not allowed
     // Instead, copy the chrome-devtools url to clipboard.
@@ -110,6 +117,7 @@ gulp.task('server', (done) => {
     }
   });
 
+  // need better handling logic for this...
   server.on('close', (code) => {
     console.log(`child process exited with code ${code}`);
   });
@@ -121,8 +129,7 @@ gulp.task('kill-server', () => {
   return server.kill();
 });
 
-// process JS files and return the stream.
-// restart express server
+// generates the bundle for client side js
 gulp.task('js', ()=>{
   const bundler = browserify(`${scriptsDir}/client/index.js`, {
     debug: true,

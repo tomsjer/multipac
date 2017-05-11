@@ -3,6 +3,12 @@ const Logger = require('../utils/logger.js');
 const logger = new Logger({
   label: 'clientEngine',
 });
+
+/**
+ * 
+ * @class Engine
+ * @return {Object} Engine instance.
+ */
 class Engine {
   constructor(options) {
 

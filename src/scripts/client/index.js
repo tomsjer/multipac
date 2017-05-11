@@ -6,9 +6,15 @@ const ws = new WsConnection({
 });
 const loginOpts = { method: 'POST', credentials: 'same-origin' };
 
-function login() {
+/**
+ * Fetches a login resource and return a promise.
+ *
+ * @param {Object} opts Login options such as HTTP methos, credenctials, etc.
+ * @return { Promise }
+ */
+function login(opts) {
   const promise = new Promise((resolve, reject)=>{
-    fetch('/login', loginOpts)
+    fetch('/login', opts)
     .then((response)=>{
       return response.json().then(resolve);
     })
@@ -21,12 +27,26 @@ function login() {
   return promise;
 }
 
+/*
+ * Main classes
+ * 
+ */
 const ClientEngine = require('./ClientEngine.js');
 const GameEngine = require('../common/GameEngine.js');
 const GameRenderer = require('./GameRenderer.js');
 const Controls = require('./KeyboardControls.js');
+
+/*
+ * Instantiate
+ * 
+ */
 const gameEngine = new GameEngine({});
-login()
+
+/*
+ * Initialize app
+ * 
+ */
+login(loginOpts)
 .then((response)=>{
   ws.init()
   .then((r)=>{
