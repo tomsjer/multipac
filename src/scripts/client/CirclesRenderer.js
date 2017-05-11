@@ -31,18 +31,17 @@ class CirclesRenderer extends GameRenderer {
     this.offCanvas.width = 20;
     this.offCanvas.height = 20;
     this.offCtx = this.offCanvas.getContext('2d');
-    // this.offCtx.strokeStyle = 'cyan';
-    // this.offCtx.beginPath();
-    // this.offCtx.arc(10, 10, 20, 0, 2 * Math.PI);
-    // this.offCtx.stroke();
-    this.offCtx.fillStyle = 'red';
-    this.offCtx.fillRect(0, 0, 20, 20);
+    
 
   }
   render() {
     this.ctx.clearRect(0, 0, width, height);
+    this.ctx.fillStyle = 'rgba(0,0,255,0.5)';
+
     for(const player in this.gameEngine.players) {
-      this.ctx.drawImage(this.offCanvas, this.gameEngine.players[player].x, this.gameEngine.players[player].y);
+      this.ctx.beginPath();
+      this.ctx.arc(this.gameEngine.players[player].x, this.gameEngine.players[player].y, 40, 0, 2 * Math.PI);
+      this.ctx.fill();
     }
   }
 }

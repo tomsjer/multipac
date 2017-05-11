@@ -1,3 +1,4 @@
+const isMobile = require('../utils/utils.js');
 const config = require('../../../config.json');
 const wsServer = `${(config.protocol === 'http') ? 'ws' : 'wss'}://${config.ip}:${config.port}`;
 const WsConnection = require('./wsconnection');
@@ -23,9 +24,21 @@ function login() {
 
 const Engine = require('./ClientEngine.js');
 const CanvasRenderer = require('./CirclesRenderer.js');
-const Controls = require('./KeyboardControls.js');
+const KeyboardControls = require('./KeyboardControls.js');
+const MobileControls = require('./MobileControls.js');
 const CirclesEngine = require('../common/CirclesEngine.js');
 const engine = new CirclesEngine({});
+const mobile = isMobile();
+if(mobile) {
+  const flag = false;
+  document.body.addEventListener('touchstart', function(){
+    if(!flag){
+      document.body.webkitRequestFullscreen();
+      flag = true;
+    }
+  });
+}
+
 login()
 .then((response)=>{
   ws.init()
@@ -37,7 +50,7 @@ login()
       gameRenderer: new CanvasRenderer({
         gameEngine: engine,
       }),
-      controls: new Controls(),
+      controls: (mobile) ? new MobileControls() : new KeyboardControls(),
     });
   });
 });
