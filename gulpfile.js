@@ -86,13 +86,13 @@ gulp.task('server', (done) => {
     if(msg.ready) {
       const cmd = (os.platform() === 'win32') ? `start chrome ${config.protocol}://${config.ip}:${config.port}` :
                                                 `chrome ${config.protocol}://${config.ip}:${config.port}`;
-      exec(cmd, (error, stdout, stderr) => {
-        if (error) {
-          console.error(`exec error: ${error}`);
-          return;
-        }
-        console.log(error, stdout, stderr);
-      });
+      // exec(cmd, (error, stdout, stderr) => {
+      //   if (error) {
+      //     console.error(`exec error: ${error}`);
+      //     return;
+      //   }
+      //   console.log(error, stdout, stderr);
+      // });
 
       done();
     }

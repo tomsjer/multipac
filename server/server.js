@@ -84,75 +84,27 @@ server.listen(config.port, config.ip, function listening() {
 
 /**
  *
- * Websockets
+ * Websockets Connections
  *
  */
-const WebSocket = require('ws');
-const wss = new WebSocket.Server({
-  perMessageDeflate: false,
-  server: server,
-  clientTracking: true,
-  verifyClient: (info, done) => {
-    console.log(' Parsing session from request...');
-    sessionParser(info.req, {}, () => {
-      console.log(' Session is parsed!');
-      //
-      // We can reject the connection by returning false to done(). For example,
-      // reject here if user is unknown.
-      //
-      done(info.req.session.userId);
-    });
+const WsConnection = require(`${__dirname}/wsconnection.js`);
+const wsconnection = new WsConnection({
+  server: {
+    perMessageDeflate: false,
+    server: server,
+    clientTracking: true,
+    verifyClient: (info, done) => {
+      console.log(' Parsing session from request...');
+      sessionParser(info.req, {}, () => {
+        console.log(' Session is parsed!');
+        //
+        // We can reject the connection by returning false to done(). For example,
+        // reject here if user is unknown.
+        //
+        done(info.req.session.userId);
+      });
+    },
   },
-});
-
-wss.on('connection', function onConnection(ws) {
-  ws.on('message', (message)=>{
-    const userSession = ws.upgradeReq.session;
-    //
-    // Here we can now use session parameters.
-    //
-    // console.log(` WS message ${message} from user ${userSession.userId}`);
-
-    const msg = (message.indexOf('{') !== -1) ? JSON.parse(message) : {};
-    this.emit(msg.event, ws, msg.args);
-  })
-  .on('close', (message)=> {
-    wss.emit('wss:connection:close', ws, message);
-  })
-  .on('error', (err)=> {
-    wss.emit('wss:connection:error', ws, err);
-  });
-  const userId = ws.upgradeReq.session.userId;
-  ws.id = userId;
-  this.emit('wss:connection:new', ws);
-})
-.on('ws:send', function send(wsId, event, args) {
-  if(wsId) {
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
-    // A more efficient way to send only to that ws?
-    for(const ws of this.clients) {
-      if(ws.id === wsId) {
-        ws.send(JSON.stringify({
-          event: event,
-          args,
-        }));
-        break;
-      }
-    }
-  }
-  else {
-    this.clients.forEach(function wsSend(ws) {
-      if(ws.readyState === WebSocket.OPEN) {
-        ws.send(JSON.stringify({
-          event: event,
-          args,
-        }));
-      }
-      else{
-        console.log('Ws not connected...');
-      }
-    });
-  }
 });
 
 /**
@@ -162,9 +114,9 @@ wss.on('connection', function onConnection(ws) {
  */
 
 process.on('message', (msg)=>{
-  if(wss.clients.size) {
+  if(wsconnection.wss.clients.size) {
     if(msg.reload) {
-      wss.clients.forEach((connection)=>{
+      wsconnection.wss.clients.forEach((connection)=>{
         connection.send(JSON.stringify({
           event: 'client:reload',
           args: {
@@ -182,6 +134,6 @@ process.on('message', (msg)=>{
 const ServerEngine = require('./ServerEngine.js');
 const GameEngine = require('../src/scripts/common/CirclesEngine.js');
 const game = new ServerEngine({
-  wss: wss,
+  wss: wsconnection.wss,
   gameEngine: new GameEngine({}),
 });
