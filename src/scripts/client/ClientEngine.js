@@ -6,10 +6,10 @@ const logger = new Logger({
 
 /**
  * 
- * @class Engine
+ * @class ClientEngine
  * @return {Object} Engine instance.
  */
-class Engine {
+class ClientEngine {
   constructor(options) {
 
     /**
@@ -110,4 +110,4 @@ class Engine {
   }
 }
 
-module.exports = Engine;
+module.exports = ClientEngine;
