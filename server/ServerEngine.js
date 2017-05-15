@@ -4,18 +4,12 @@ const logger = new Logger({
   label: 'engine',
 });
 
-class Engine {
+/**
+ * @class ServerEngine
+ * @param {Object} options Configuration options object
+ */
+class ServerEngine {
   constructor(options) {
-
-    /**
-     *
-     * Config
-     *
-     */
-    this.config = {
-      step: Date.now(),
-      updateInterval: 16,
-    };
 
     /**
      *
@@ -27,22 +21,21 @@ class Engine {
     this.wss.on('wss:connection:close', this.CloseConnection.bind(this));
     this.wss.on('wss:connection:error', this.connectionError.bind(this));
     this.wss.on('wss:client:update', this.clientUpdate.bind(this));
-    this.wss.on('wss:client:input', this.processClientInut.bind(this));
+    this.wss.on('wss:client:input', this.appendClientInput.bind(this));
 
     /**
      *
      * Game
      *
      */
+    this.updateFrequency = 60;
+    this.broadcastFrequency = 30;
     this.gameEngine = options.gameEngine;
     this.connectedPlayers = {};
     this.playerInputQues = {};
-
-    const self = this;
-    setInterval(function stepper() {
-      self.step();
-    }, this.config.updateInterval);
-
+    this.clientInput = [];
+    this.stepCount = 0;
+    this.start();
   }
 
   /*
@@ -54,7 +47,7 @@ class Engine {
     logger.log(`[engine] newConnection: ${ws.id}`);
     this.connectedPlayers[ws.id] = ws.id;
     this.gameEngine.addPlayer({ wsId: ws.id });
-    this.wss.emit('ws:send', ws.id, 'engine:playerJoined', { id: ws.id });
+    this.wss.emit('ws:send', ws.id, 'engine:playerJoined', { id: ws.id, stepCount: this.stepCount });
     this.wss.emit('ws:send', null, 'engine:newConnection', this.gameEngine.players);
   }
   CloseConnection(ws, code, message) {
@@ -68,13 +61,24 @@ class Engine {
     this.gameEngine.removePlayer(ws);
   }
   broadcastUpdate() {
-    this.wss.emit('ws:send', false, 'engine:gameupdate', this.gameEngine.status);
+    this.wss.emit('ws:send', false, 'engine:gameupdate', {
+      stepCount: this.stepCount,
+      game: this.gameEngine.status,
+    });
   }
   clientUpdate(ws, message) {
     logger.log(ws, message);
   }
-  processClientInut(ws, input) {
-    this.gameEngine.processInput(input);
+  appendClientInput(ws, input) {
+    this.clientInput.push(input);
+  }
+  processClientInput() {
+    if(this.clientInput.length) {
+      this.clientInput.forEach((input)=> {
+        this.gameEngine.processInput(input);
+      });
+      this.clientInput = [];
+    }
   }
 
   /*
@@ -82,10 +86,25 @@ class Engine {
    * Engine logic
    *
    */
+  start() {
+    this.stepCount = Date.now() / 1000 | 0;
+    this.gameEngine.start();
+    this.step();
+  }
   step() {
+    this.processClientInput();
     this.gameEngine.update();
-    this.broadcastUpdate();
+    this.stepCount++;
+
+    if(this.stepCount % this.broadcastFrequency === 0) {
+      this.broadcastUpdate();
+    }
+
+    setTimeout(this.step.bind(this), 1000 / this.updateFrequency);
+  }
+  stop() {
+
   }
 }
 
-module.exports = Engine;
+module.exports = ServerEngine;

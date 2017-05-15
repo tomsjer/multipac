@@ -7,7 +7,7 @@ const logger = new Logger({
 /**
  * 
  * @class ClientEngine
- * @return {Object} Engine instance.
+ * @return {Object} ClientEngine instance.
  */
 class ClientEngine {
   constructor(options) {
@@ -17,10 +17,7 @@ class ClientEngine {
      * Config
      *
      */
-    this.config = {
-      step: Date.now(),
-      updateFrequency: 60,
-    };
+    this.updateFrequency = 60;
 
     /**
      *
@@ -44,7 +41,7 @@ class ClientEngine {
      */
     this.gameEngine = options.gameEngine;
     this.controls = options.controls;
-    this.controls.on('controls:input', this.sendInput.bind(this));
+    // this.controls.on('controls:input', this.sendInput.bind(this));
 
     this.playerId = null;
 
@@ -52,6 +49,13 @@ class ClientEngine {
      * Game Renderer
      */
     this.gameRenderer = options.gameRenderer;
+
+    /*
+     * Setup packets
+     *
+     */
+    this.clientInput = [];
+    this.controls.on('controls:input', this.processInput.bind(this));
   }
 
   /*
@@ -74,6 +78,7 @@ class ClientEngine {
   playerJoined(player) {
     logger.log('playerJoined', player);
     this.playerId = player.id;
+    this.stepCount = player.stepCount;
     this.start();
   }
   gameUpdate(message) {
@@ -92,21 +97,27 @@ class ClientEngine {
   }
   step() {
     this.gameEngine.update();
-    // this.sendInput({
-    //   playerId: this.playerId,
-    //   type: 'mousemove',
-    //   input:[
-    //     300 + Math.cos(this.delta * Math.PI/180) * 100,
-    //     300 + Math.sin(this.delta * Math.PI/180) * 100
-    //   ]
-    // });
-    // this.delta++;
+    if(this.clientInput.length) {
+      this.ws.emit('ws:send:input', {
+        type: 'clientInput',
+        inputs: this.clientInput,
+        stepCount: this.stepCount,
+        id: this.playerId,
+      });
+      this.clientInput = [];
+    }
+
+    this.stepCount++;
+
     setTimeout(this.step.bind(this), 1000 / this.updateFrequency);
   }
   sendInput(input) {
     input.playerId = this.playerId;
     this.ws.emit('ws:send:input', input);
     this.gameEngine.processInput(input);
+  }
+  processInput(input) {
+    this.clientInput.push(input);
   }
 }
 
