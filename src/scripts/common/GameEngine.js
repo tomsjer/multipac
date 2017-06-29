@@ -10,14 +10,18 @@ class GameEngine extends EventEmitter {
     super(null);
     this.options = options || {};
     this.players = options.players || {};
-    this.status = { players: this.players };
+    this.state = { players: this.players };
     return this;
   }
-  start() {
-
+  start(game) {
+    for(const i in game.players) {
+      this.players[i] = new Player(game.players[i]);
+    }
   }
-  update() {
-
+  step() {
+    // for(const i in this.players) {
+      
+    // }
   }
   stop() {
 
@@ -37,7 +41,7 @@ class GameEngine extends EventEmitter {
     return this.players;
   }
   processInput(input) {
-    logger.log(input);
+    this.players[input.id].emit(input.type, input.input);
   }
 }
 

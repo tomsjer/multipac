@@ -141,5 +141,7 @@ const ServerEngine = require('./ServerEngine.js');
 const GameEngine = require('../src/scripts/common/GameEngine.js');
 const engine = new ServerEngine({
   wss: wsconnection.wss,
-  gameEngine: new GameEngine({}),
+  gameEngine: new GameEngine({
+    wss: wsconnection.wss,
+  }),
 });

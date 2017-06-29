@@ -1,10 +1,13 @@
 const Logger = require('../utils/logger.js');
 const logger = new Logger({
-  label: 'entity'
+  label: 'entity',
 });
-class Entity {
+const EventEmitter = require('events');
+
+class Entity extends EventEmitter {
   constructor(options) {
-    logger.log(` New entity...`);
+    super(null);
+    logger.log(` New entity... ${options}`);
   }
 }
 

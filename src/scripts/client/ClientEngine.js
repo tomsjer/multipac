@@ -30,9 +30,7 @@ class ClientEngine {
     this.ws.on('ws:error', this.wsOnError.bind(this));
     this.ws.on('engine:playerJoined', this.playerJoined.bind(this));
     this.ws.on('engine:gameupdate', this.gameUpdate.bind(this));
-    this.ws.on('engine:newConnection', function(args) {
-      logger.log('new connection', args);
-    });
+    
 
     /**
      *
@@ -41,6 +39,7 @@ class ClientEngine {
      */
     this.gameEngine = options.gameEngine;
     this.controls = options.controls;
+    this.updateState = [];
     // this.controls.on('controls:input', this.sendInput.bind(this));
 
     this.playerId = null;
@@ -75,38 +74,44 @@ class ClientEngine {
     logger.error('wsOnError', error);
     this.gameEngine.stop();
   }
-  playerJoined(player) {
-    logger.log('playerJoined', player);
-    this.playerId = player.id;
-    this.stepCount = player.stepCount;
-    this.start();
+  playerJoined(response) {
+    logger.log('playerJoined', response);
+    this.playerId = response.id;
+    this.stepCount = response.stepCount;
+    this.start(response.game);
   }
-  gameUpdate(message) {
-    this.gameEngine.players = message.players;
+  gameUpdate(update) {
+    
+    for(const i in update.game.players) {
+      if (i !== this.playerId) {
+        if(typeof this.gameEngine.players[i] === 'undefined') {
+          update.game.players[i].wsId = i;
+          this.gameEngine.addPlayer(update.game.players[i]);
+        }
+        else {
+          this.gameEngine.players[i].x = update.game.players[i].x;
+          this.gameEngine.players[i].y = update.game.players[i].y;
+        }
+      }
+    }
   }
   /*
    *
    * Engine logic
    *
    */
-  start() {
-    this.gameEngine.start();
+  start(game) {
+    this.gameEngine.start(game);
     this.gameRenderer.start();
     this.delta = 0;
     this.step();
   }
   step() {
-    this.gameEngine.update();
     if(this.clientInput.length) {
-      this.ws.emit('ws:send:input', {
-        type: 'clientInput',
-        inputs: this.clientInput,
-        stepCount: this.stepCount,
-        id: this.playerId,
-      });
+      this.ws.emit('ws:send:input', this.clientInput);
       this.clientInput = [];
     }
-
+    this.gameEngine.step();
     this.stepCount++;
 
     setTimeout(this.step.bind(this), 1000 / this.updateFrequency);
@@ -117,7 +122,11 @@ class ClientEngine {
     this.gameEngine.processInput(input);
   }
   processInput(input) {
+    input.id = this.playerId;
+    input.stepCount = this.stepCount;
+
     this.clientInput.push(input);
+    this.gameEngine.processInput(input);
   }
 }
 

@@ -29,7 +29,7 @@ class ServerEngine {
      *
      */
     this.updateFrequency = 60;
-    this.broadcastFrequency = 30;
+    this.broadcastFrequency = 20;
     this.gameEngine = options.gameEngine;
     this.connectedPlayers = {};
     this.playerInputQues = {};
@@ -47,8 +47,12 @@ class ServerEngine {
     logger.log(`[engine] newConnection: ${ws.id}`);
     this.connectedPlayers[ws.id] = ws.id;
     this.gameEngine.addPlayer({ wsId: ws.id });
-    this.wss.emit('ws:send', ws.id, 'engine:playerJoined', { id: ws.id, stepCount: this.stepCount });
-    this.wss.emit('ws:send', null, 'engine:newConnection', this.gameEngine.players);
+    this.wss.emit('ws:send', ws.id, 'engine:playerJoined', {
+      id: ws.id,
+      stepCount: this.stepCount,
+      game: this.gameEngine.state,
+    });
+    this.wss.emit('ws:send', null, 'engine:newConnection', this.gameEngine.state);
   }
   CloseConnection(ws, code, message) {
     logger.log(`[engine] closeConnection: ${ws.id}\n code: ${code}\n message: ${message}`);
@@ -63,7 +67,7 @@ class ServerEngine {
   broadcastUpdate() {
     this.wss.emit('ws:send', false, 'engine:gameupdate', {
       stepCount: this.stepCount,
-      game: this.gameEngine.status,
+      game: this.gameEngine.state,
     });
   }
   clientUpdate(ws, message) {
@@ -75,7 +79,7 @@ class ServerEngine {
   processClientInput() {
     if(this.clientInput.length) {
       this.clientInput.forEach((input)=> {
-        this.gameEngine.processInput(input);
+        this.gameEngine.processInput(input[0]);
       });
       this.clientInput = [];
     }
@@ -88,12 +92,12 @@ class ServerEngine {
    */
   start() {
     this.stepCount = Date.now() / 1000 | 0;
-    this.gameEngine.start();
+    this.gameEngine.start({ players: { } });
     this.step();
   }
   step() {
     this.processClientInput();
-    this.gameEngine.update();
+    this.gameEngine.step();
     this.stepCount++;
 
     if(this.stepCount % this.broadcastFrequency === 0) {
