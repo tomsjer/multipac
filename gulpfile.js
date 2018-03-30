@@ -87,7 +87,7 @@ gulp.task('server', (done) => {
   server.on('message', (msg) => {
     if(msg.ready) {
       const cmd = (os.platform() === 'win32') ? `start chrome ${config.protocol}://${config.ip}:${config.port}` :
-                                                `chrome ${config.protocol}://${config.ip}:${config.port}`; //TODO: add browser bin to config
+                                                `open ${config.protocol}://${config.ip}:${config.port}`; //TODO: add browser bin to config
       exec(cmd, (error, stdout, stderr) => {
         if (error) {
           console.error(`exec error: ${error}`);
