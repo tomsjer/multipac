@@ -52,11 +52,11 @@ function TableroModelo(config){
     this.grilla     = grilla.bind(this)(this.filas, this.columnas);
     
     this.celdaOcupada = function(y,x){
-        return (this.grilla[y][x].estado !== 0 && this.grilla[y][x].estado !== 2 );
+        return (this.grilla[y][x].estado !== 0 && this.grilla[y][x].estado !== 2 && this.grilla[y][x].estado !== 3 );
     };
 
     this.celdaConComida = function(y,x){
-        return (this.grilla[y][x].estado === 2);
+        return (this.grilla[y][x].estado === 2 || this.grilla[y][x].estado === 3);
     };
 
     this.celdaComida = function(y,x){
